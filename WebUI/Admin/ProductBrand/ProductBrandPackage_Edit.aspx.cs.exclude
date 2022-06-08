@@ -1,0 +1,117 @@
+﻿using DbObj;
+using evointernal;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using SystemFrameWork;
+using Telerik.Web.UI;
+
+public partial class ProductBrandPackage_Edit : System.Web.UI.Page
+{
+    int PackageSoftwareType_ID = 0;
+    public string title = "Thông tin gói doanh nghiệp";
+    public string avatar = "";
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (!string.IsNullOrEmpty(Request["PackageSoftwareType_ID"]))
+            int.TryParse(Request["PackageSoftwareType_ID"].ToString(), out PackageSoftwareType_ID);
+        if (!IsPostBack)
+        {
+            FillInfoPackageSoftwareType();
+        }
+    }
+
+    protected void FillInfoPackageSoftwareType()
+    {
+        try
+        {
+            if (PackageSoftwareType_ID != 0)
+            {
+                PackageSoftwareTypeRow _PackageSoftwareTypeRow = new PackageSoftwareTypeRow();
+                _PackageSoftwareTypeRow = BusinessRulesLocator.GetPackageSoftwareTypeBO().GetByPrimaryKey(PackageSoftwareType_ID);
+                if (_PackageSoftwareTypeRow != null)
+                {
+                    txtName.Text = _PackageSoftwareTypeRow.IsTitleNull ? string.Empty : _PackageSoftwareTypeRow.Title;
+                    txtDescription.Text = _PackageSoftwareTypeRow.IsDescriptionNull ? string.Empty : _PackageSoftwareTypeRow.Description.ToString();
+                    if (_PackageSoftwareTypeRow.Status == 1)
+                    {
+                        ckActive.Checked = true;
+                    }
+                    else
+                    {
+                        ckActive.Checked = false;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("FillInfoUser", ex.ToString());
+        }
+    }
+
+    protected void UpdatePackageSoftwareType()
+    {
+        try
+        {
+
+            PackageSoftwareTypeRow _PackageSoftwareTypeRow = new PackageSoftwareTypeRow();
+            if (PackageSoftwareType_ID != 0)
+            {
+                _PackageSoftwareTypeRow = BusinessRulesLocator.GetPackageSoftwareTypeBO().GetByPrimaryKey(PackageSoftwareType_ID);
+                if (_PackageSoftwareTypeRow != null)
+                {
+                    _PackageSoftwareTypeRow.Title = string.IsNullOrEmpty(txtName.Text) ? string.Empty : txtName.Text;
+                    _PackageSoftwareTypeRow.Description = string.IsNullOrEmpty(txtDescription.Text) ? string.Empty : txtDescription.Text;
+
+                    if (ckActive.Checked)
+                    {
+                        _PackageSoftwareTypeRow.Status = 1;
+                    }
+                    else
+                    {
+                        _PackageSoftwareTypeRow.Status = 0;
+                    }
+                    BusinessRulesLocator.GetPackageSoftwareTypeBO().Update(_PackageSoftwareTypeRow);
+                }
+                lblMessage.Text = "Cập nhật thông tin thành công!";
+                lblMessage.Visible = true;
+                FillInfoPackageSoftwareType();
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("UpdatePackageSoftwareType", ex.ToString());
+        }
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Page.IsValid)
+            {
+                UpdatePackageSoftwareType();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("btnSave_Click", ex.ToString());
+        }
+    }
+
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ProductBrandPackage_List.aspx", false);
+    }
+}

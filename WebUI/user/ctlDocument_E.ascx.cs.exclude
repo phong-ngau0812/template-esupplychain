@@ -1,0 +1,186 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.IO;
+using System.Collections;
+using SystemFrameWork;
+using DbObj;
+
+
+public partial class user_ctlDocument_E : System.Web.UI.UserControl
+{
+
+    int DocumentID = 0;
+    string mode = string.Empty;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      
+        if (!string.IsNullOrEmpty(Request["mode"]))
+            mode = Request["mode"].ToString();
+
+        if (!string.IsNullOrEmpty(Request["DocumentID"]))
+            int.TryParse(Request["DocumentID"].ToString(), out DocumentID);
+
+        if (!IsPostBack)
+        {
+            Init();
+            if (mode.ToLower().Equals("edit") && DocumentID > 0)
+            {
+                FillInfoUser();
+            }
+        }
+    }
+
+    protected void Init()
+    {
+        if (mode.ToLower().Equals("add"))
+        {
+            lblTitle.Text = "Add New";
+        
+        }
+        else if (mode.ToLower().Equals("edit"))
+        {
+            lblTitle.Text = "Edit";
+         
+        }
+    }
+
+    
+    protected void FillInfoUser()
+    {
+        try
+        {
+            tblDownloadItemRow _tblUserRow = GetInfoUserById(DocumentID);
+            
+            if (_tblUserRow != null)
+            {
+                txtUserName.Text = _tblUserRow.IsItemNameNull ? string.Empty : _tblUserRow.ItemName;
+                txtSource.Text = _tblUserRow.IsSourceNull ? string.Empty : _tblUserRow.Source;
+              
+                ddlCategory.SelectedValue = _tblUserRow.DownloadCategory.ToString();
+                ddlLang.SelectedValue = _tblUserRow.Lang;
+                
+                if (_tblUserRow.Status == 1)
+                {
+                    rdoActive.Checked = true;
+                    rdoLock.Checked = false;
+                }
+                else
+                {
+                    rdoActive.Checked = false;
+                    rdoLock.Checked = true;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("FillInfoUser", ex.ToString());
+        }
+    }
+
+    protected tblDownloadItemRow GetInfoUserById(int _Id)
+    {
+        tblDownloadItemRow _tblUserRow = new tblDownloadItemRow();
+        try
+        {
+            _tblUserRow = BusinessRulesLocator.GettblDownloadItemBO().GetByPrimaryKey(_Id);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("GetInfoUserById", ex.ToString());
+        }
+        return _tblUserRow;
+    }
+
+    protected tblDownloadItemRow GetInfoUser()
+    {
+        tblDownloadItemRow _tblUserRow = new tblDownloadItemRow();
+        try
+        {
+            if (mode.ToLower().Equals("edit"))
+                _tblUserRow = GetInfoUserById(DocumentID);
+           
+            _tblUserRow.ItemName = txtUserName.Text.Trim().ToLower();
+            _tblUserRow.DownloadCategory =Convert.ToInt32( ddlCategory.SelectedValue) ;
+            _tblUserRow.Lang = ddlLang.SelectedValue;
+            _tblUserRow.Source = string.IsNullOrEmpty(txtSource.Text.Trim()) ? string.Empty : txtSource.Text.Trim();
+            _tblUserRow.RegDate = DateTime.Now;
+            _tblUserRow.Status = rdoActive.Checked ? 1 : 0;
+            _tblUserRow.OrderBy = 0;
+            //Thong tin email config
+
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("GetInfoUser", ex.ToString());
+        }
+        return _tblUserRow;
+    }
+
+
+    protected void ClearForm()
+    {
+      
+        txtUserName.Text = string.Empty;
+        txtSource.Text = string.Empty;
+        rdoActive.Checked = true;
+        rdoLock.Checked = false;
+    }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Response.Redirect("Document_L.aspx", false);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("btnReset_Click", ex.ToString());
+        }
+    }
+
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Page.IsValid)
+            {
+                
+                    tblDownloadItemRow _tblUserRow = GetInfoUser();
+                    if (_tblUserRow != null)
+                    {
+                        if (mode.ToLower().Equals("add"))
+                        {
+                           
+                                BusinessRulesLocator.GettblDownloadItemBO().Insert(_tblUserRow);
+                                if (!_tblUserRow.IsIDNull)
+                                {
+                                    lblMessage.Text = "You have successfully inserted!";
+                                    ClearForm();
+                                }
+                        
+                        }
+                        else if (mode.ToLower().Equals("edit"))
+                        {
+                            if (BusinessRulesLocator.GettblDownloadItemBO().Update(_tblUserRow))
+                            {
+                                lblMessage.Text = "You have successfully updated!";
+                            }
+                        }
+                    }
+               
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("btnSave_Click", ex.ToString());
+        }
+    }
+
+
+}

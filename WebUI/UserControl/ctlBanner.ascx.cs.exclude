@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using SystemFrameWork;
+using DbObj;
+
+
+public partial class UserControl_ctlBanner : System.Web.UI.UserControl
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+         //   LoadCombobox();
+        }
+    }
+
+
+    //protected void btnSearch_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string country = ddlDestination.SelectedItem.Text.ToString();
+    //        if (country == "Any destinations")
+    //        {
+    //            country = "0";
+    //        }
+    //        string tourstyle = ddlTourStyle.SelectedValue.ToString();
+    //        string duration = ddlDuration.SelectedValue.ToString();
+    //        Response.Redirect("/FilterTours/ResultFilter?country=" + country + "&tourstyle=" + tourstyle + "&duration=" + duration, false);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Log.writeLog(ex.ToString(), "btnSearch_Click");
+    //    }
+    //}
+    //protected void LoadCombobox()
+    //{
+    //    try
+    //    {
+
+    //        DataTable dtDestination = new DataTable();
+    //        dtDestination = BusinessRulesLocator.Conllection().GetAllList("Select ID, URL, PageName from tblPages where Status<>-1 and  TypePageId=3 and ParentID=24 order by OrderBy ASC");
+    //        if (dtDestination.Rows.Count > 0)
+    //        {
+    //            ddlDestination.DataSource = dtDestination;
+    //            ddlDestination.DataTextField = "PageName";
+    //            ddlDestination.DataValueField = "URL";
+    //            ddlDestination.DataBind();
+    //            ListItem item = new ListItem("Any destinations", "0");
+    //            ddlDestination.Items.Insert(0, item);
+    //            ddlDestination.SelectedIndex = -1;
+    //        }
+
+
+    //        DataTable dtTourStyle = new DataTable();
+    //        dtTourStyle = BusinessRulesLocator.Conllection().GetAllList("Select ID, URL, PageName from tblPages where Status<>-1 and  TypePageId=3 and ParentID=26 order by OrderBy ASC");
+    //        if (dtTourStyle.Rows.Count > 0)
+    //        {
+    //            ddlTourStyle.DataSource = dtTourStyle;
+    //            ddlTourStyle.DataTextField = "PageName";
+    //            ddlTourStyle.DataValueField = "URL";
+    //            ddlTourStyle.DataBind();
+    //            ListItem item = new ListItem("Any style", "0");
+    //            ddlTourStyle.Items.Insert(0, item);
+    //            ddlTourStyle.SelectedIndex = -1;
+    //        }
+
+    //        DataTable dtDuration = new DataTable();
+    //        dtDuration = BusinessRulesLocator.Conllection().GetAllList("Select ID, URL,PageName from tblPages where Status<>-1 and  TypePageId=3 and ParentID=27 order by OrderBy ASC");
+    //        if (dtDuration.Rows.Count > 0)
+    //        {
+    //            ddlDuration.DataSource = dtDuration;
+    //            ddlDuration.DataTextField = "PageName";
+    //            ddlDuration.DataValueField = "URL";
+    //            ddlDuration.DataBind();
+    //            ListItem item = new ListItem("Any length of stay", "0");
+    //            ddlDuration.Items.Insert(0, item);
+    //            ddlDuration.SelectedIndex = -1;
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Log.writeLog(ex.ToString(), "LoadData");
+    //    }
+    //}
+}

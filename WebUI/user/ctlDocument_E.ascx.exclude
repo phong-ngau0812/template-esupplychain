@@ -1,0 +1,52 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctlDocument_E.ascx.cs" Inherits="user_ctlDocument_E" %>
+<%@ Register Src="../usercontrol/UploadImage.ascx" TagName="UploadImage" TagPrefix="uc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+<div id="box">
+    <h3><asp:Label ID="lblTitle" runat="server" Text="Add New"></asp:Label></h3>
+    
+    <div class="box2">
+        <fieldset>
+            <legend>Document Information</legend>
+            <label></label>
+            <asp:Label ID="lblMessage" runat="server" Text="" Font-Bold="true" ForeColor="Red"></asp:Label>
+            <br />
+            
+            <label><font color="red">*</font> Document Name</label>
+            <asp:TextBox ID="txtUserName" runat="server" Text="" Width="220px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="reqUserName" runat="server" SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtUserName" ErrorMessage="*"></asp:RequiredFieldValidator>
+            <br />
+            <label><font color="red">*</font> Document category</label>
+           <asp:DropDownList runat="server" ID="ddlCategory">
+               <asp:ListItem Text="Presentation" Value="1"></asp:ListItem>
+               <asp:ListItem Text="Transportation" Value="2"></asp:ListItem>
+               <asp:ListItem Text="Photo" Value="3"></asp:ListItem>
+               <asp:ListItem Text="Our brochure" Value="4"></asp:ListItem>
+           </asp:DropDownList>
+            <br />
+            <label><font color="red">*</font> Lang</label>
+          <asp:DropDownList runat="server" ID="ddlLang">
+               <asp:ListItem Text="en" Value="en"></asp:ListItem>
+               <asp:ListItem Text="fr" Value="fr"></asp:ListItem>
+               <asp:ListItem Text="es" Value="es"></asp:ListItem>
+               <asp:ListItem Text="de" Value="de"></asp:ListItem>
+               <asp:ListItem Text="it" Value="it"></asp:ListItem>
+           </asp:DropDownList>
+            <br />
+            <label><font color="red">*</font> Url source</label> 
+            <asp:TextBox ID="txtSource" runat="server" Text="" Width="220px" TextMode="MultiLine" Rows="3"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="reqFullName" runat="server" SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtSource" ErrorMessage="*"></asp:RequiredFieldValidator>
+            <br />
+            <label>Active/Lock</label>
+            <asp:RadioButton ID="rdoActive" runat="server" Checked="true" GroupName="status" /> Active
+            <asp:RadioButton ID="rdoLock" runat="server" GroupName="status" /> Lock
+            <br />
+            <label></label>
+            <asp:Button ID="btnSave" runat="server" Text=" Save " CssClass="button" CausesValidation="true" onclick="btnSave_Click" />
+            <asp:Button ID="btnCancel" runat="server" Text=" Cancel " CssClass="button" CausesValidation="false" onclick="btnCancel_Click" />
+        </fieldset>
+    </div>
+    
+</div>
+        

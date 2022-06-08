@@ -1,0 +1,1508 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BusinessRules</name>
+    </assembly>
+    <members>
+        <member name="T:AccountTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.AccountTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.AccountTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:Account_CheckVNBO">
+            <summary>
+            The base class for <see cref="T:DbObj.Account_CheckVNCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.Account_CheckVNCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ActiveLinkBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ActiveLinkCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ActiveLinkCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:AgencyBO">
+            <summary>
+            The base class for <see cref="T:DbObj.AgencyCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.AgencyCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:AreaBO">
+            <summary>
+            The base class for <see cref="T:DbObj.AreaCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.AreaCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:AudioBO">
+            <summary>
+            The base class for <see cref="T:DbObj.AudioCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.AudioCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:AudioRequestBO">
+            <summary>
+            The base class for <see cref="T:DbObj.AudioRequestCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.AudioRequestCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BaoHiemBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BaoHiemCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BaoHiemCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_BackLinkBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_BackLinkCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_BackLinkCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_BannerBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_BannerCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_BannerCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_BrandBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_BrandCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_BrandCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_ConfigBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_ConfigCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_ConfigCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_ContactBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_ContactCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_ContactCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_CountryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_CountryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_CountryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_CountryVsDocumentBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_CountryVsDocumentCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_CountryVsDocumentCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_DocumentBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_DocumentCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_DocumentCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_DocumentCategoryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_DocumentCategoryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_DocumentCategoryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_FeedbackBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_FeedbackCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_FeedbackCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_MemberBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_MemberCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_MemberCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_NewsBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_NewsCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_NewsCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_NewsCategoryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_NewsCategoryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_NewsCategoryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_NewsVsDocumentBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_NewsVsDocumentCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_NewsVsDocumentCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_OrderBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_OrderCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_OrderCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_OrderDetailBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_OrderDetailCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_OrderDetailCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_ProductBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_ProductCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_ProductCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_QABO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_QACollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_QACollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_QualityBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_QualityCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_QualityCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_RegionBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_RegionCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_RegionCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_RegionVsLocationBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_RegionVsLocationCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_RegionVsLocationCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BNN_VideoBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BNN_VideoCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BNN_VideoCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BranchBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BranchCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BranchCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BusinessRulesBase">
+            <summary>
+            The base class for the <see cref="!:asiaticadb"/> class that 
+            represents a connection to the <c>asiaticadb</c> database. 
+            </summary>
+            <remarks>
+            Do not change this source code. Modify the asiaticadb class
+            if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:BusinessTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.BusinessTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.BusinessTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ChainLinkBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ChainLinkCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ChainLinkCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ConfigAudioVsMessageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ConfigAudioVsMessageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ConfigAudioVsMessageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ContactBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ContactCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ContactCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:CountryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.CountryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.CountryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:CustomerBO">
+            <summary>
+            The base class for <see cref="T:DbObj.CustomerCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.CustomerCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:CustomerTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.CustomerTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.CustomerTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:DepartmentBO">
+            <summary>
+            The base class for <see cref="T:DbObj.DepartmentCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.DepartmentCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:DepartmentManBO">
+            <summary>
+            The base class for <see cref="T:DbObj.DepartmentManCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.DepartmentManCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:DiscountBO">
+            <summary>
+            The base class for <see cref="T:DbObj.DiscountCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.DiscountCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:DistrictBO">
+            <summary>
+            The base class for <see cref="T:DbObj.DistrictCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.DistrictCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:EmailTemplateBO">
+            <summary>
+            The base class for <see cref="T:DbObj.EmailTemplateCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.EmailTemplateCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:EvaluateBO">
+            <summary>
+            The base class for <see cref="T:DbObj.EvaluateCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.EvaluateCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FarmBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FarmCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FarmCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FarmGroupBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FarmGroupCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FarmGroupCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FarmGroupInterBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FarmGroupInterCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FarmGroupInterCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FarmStatusBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FarmStatusCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FarmStatusCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FCMClientBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FCMClientCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FCMClientCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FCMFormBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FCMFormCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FCMFormCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FCMMessageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FCMMessageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FCMMessageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FCMMessageForTokkenBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FCMMessageForTokkenCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FCMMessageForTokkenCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FunctionBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FunctionCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FunctionCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FunctionGroupBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FunctionGroupCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FunctionGroupCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:FunctionGroupMenuBO">
+            <summary>
+            The base class for <see cref="T:DbObj.FunctionGroupMenuCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.FunctionGroupMenuCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:LanguageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.LanguageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.LanguageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:LocationBO">
+            <summary>
+            The base class for <see cref="T:DbObj.LocationCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.LocationCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:LogHandlerBO">
+            <summary>
+            The base class for <see cref="T:DbObj.LogHandlerCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.LogHandlerCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ManufactureTechBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ManufactureTechCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ManufactureTechCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ManufactureTechVsTaskBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ManufactureTechVsTaskCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ManufactureTechVsTaskCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:MaterialBO">
+            <summary>
+            The base class for <see cref="T:DbObj.MaterialCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.MaterialCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:MaterialCategoryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.MaterialCategoryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.MaterialCategoryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:MaterialPriceBO">
+            <summary>
+            The base class for <see cref="T:DbObj.MaterialPriceCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.MaterialPriceCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:MenuBO">
+            <summary>
+            The base class for <see cref="T:DbObj.MenuCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.MenuCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:MessageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.MessageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.MessageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:MessageRequestBO">
+            <summary>
+            The base class for <see cref="T:DbObj.MessageRequestCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.MessageRequestCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:MinistryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.MinistryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.MinistryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:NotificationBO">
+            <summary>
+            The base class for <see cref="T:DbObj.NotificationCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.NotificationCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:NotificationTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.NotificationTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.NotificationTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:PageFunctionBO">
+            <summary>
+            The base class for <see cref="T:DbObj.PageFunctionCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.PageFunctionCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:POManageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.POManageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.POManageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:POVsProductBO">
+            <summary>
+            The base class for <see cref="T:DbObj.POVsProductCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.POVsProductCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductBrandBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductBrandCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductBrandCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductBrandChangeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductBrandChangeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductBrandChangeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductBrandTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductBrandTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductBrandTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductCategoryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductCategoryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductCategoryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductChangeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductChangeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductChangeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductGalleryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductGalleryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductGalleryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductInfoBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductInfoCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductInfoCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductItemBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductItemCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductItemCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageHistoryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageHistoryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageHistoryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageOrderBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageOrderCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageOrderCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageOrderCategoryBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageOrderCategoryCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageOrderCategoryCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageOrderMaterialBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageOrderMaterialCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageOrderMaterialCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageOrderMaterialRuleBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageOrderMaterialRuleCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageOrderMaterialRuleCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageOrderStatusBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageOrderStatusCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageOrderStatusCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageStatusBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageStatusCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageStatusCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageVsMaterialBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageVsMaterialCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageVsMaterialCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPackageVsTaskTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPackageVsTaskTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPackageVsTaskTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductPictureBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductPictureCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductPictureCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductReviewBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductReviewCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductReviewCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ProductTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ProductTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ProductTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodeCustomerRegisterBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodeCustomerRegisterCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodeCustomerRegisterCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodeLocationRegisterBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodeLocationRegisterCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodeLocationRegisterCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodePackageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodePackageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodePackageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodePackageChangeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodePackageChangeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodePackageChangeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodePackageRuleBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodePackageRuleCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodePackageRuleCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodePackageVsProductPakageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodePackageVsProductPakageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodePackageVsProductPakageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodePublicBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodePublicCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodePublicCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodeSecretBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodeSecretCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodeSecretCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodeStatusBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodeStatusCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodeStatusCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodeTrackingBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodeTrackingCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodeTrackingCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodeWarehouseRegisterBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodeWarehouseRegisterCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodeWarehouseRegisterCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QRCodeWorkshopRegisterBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QRCodeWorkshopRegisterCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QRCodeWorkshopRegisterCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:QualityBO">
+            <summary>
+            The base class for <see cref="T:DbObj.QualityCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.QualityCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ReadNotificationBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ReadNotificationCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ReadNotificationCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ReplaceCharBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ReplaceCharCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ReplaceCharCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SalesInformationBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SalesInformationCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SalesInformationCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SalesInformationVsProductBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SalesInformationVsProductCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SalesInformationVsProductCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SalesInformationVsProductPackageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SalesInformationVsProductPackageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SalesInformationVsProductPackageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SalesShiftBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SalesShiftCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SalesShiftCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SettingBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SettingCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SettingCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SitemapBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SitemapCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SitemapCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SkinBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SkinCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SkinCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SlideShowBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SlideShowCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SlideShowCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SMSMessageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SMSMessageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SMSMessageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SMSMessageDraftBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SMSMessageDraftCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SMSMessageDraftCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:StaffTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.StaffTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.StaffTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:StoreBO">
+            <summary>
+            The base class for <see cref="T:DbObj.StoreCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.StoreCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SupplierBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SupplierCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SupplierCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SysLogBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SysLogCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SysLogCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:SystemLogBO">
+            <summary>
+            The base class for <see cref="T:DbObj.SystemLogCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.SystemLogCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TagBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TagCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TagCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TagMapBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TagMapCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TagMapCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TagTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TagTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TagTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TaskBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TaskCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TaskCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TaskStatusBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TaskStatusCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TaskStatusCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TaskStepAnswerBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TaskStepAnswerCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TaskStepAnswerCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TaskStepBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TaskStepCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TaskStepCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TaskStepQuestionBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TaskStepQuestionCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TaskStepQuestionCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TaskStepVsProductPackageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TaskStepVsProductPackageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TaskStepVsProductPackageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TaskTypeBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TaskTypeCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TaskTypeCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TestingCertificatesBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TestingCertificatesCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TestingCertificatesCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TimeKeepingBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TimeKeepingCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TimeKeepingCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:TransporterBO">
+            <summary>
+            The base class for <see cref="T:DbObj.TransporterCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.TransporterCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:UserNotifyBO">
+            <summary>
+            The base class for <see cref="T:DbObj.UserNotifyCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.UserNotifyCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:UserVsPageFunctionBO">
+            <summary>
+            The base class for <see cref="T:DbObj.UserVsPageFunctionCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.UserVsPageFunctionCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:UserVsProductBrandBO">
+            <summary>
+            The base class for <see cref="T:DbObj.UserVsProductBrandCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.UserVsProductBrandCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:WardBO">
+            <summary>
+            The base class for <see cref="T:DbObj.WardCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.WardCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:WarehouseBO">
+            <summary>
+            The base class for <see cref="T:DbObj.WarehouseCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.WarehouseCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:WarehouseExportBO">
+            <summary>
+            The base class for <see cref="T:DbObj.WarehouseExportCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.WarehouseExportCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:WarehouseExportMaterialBO">
+            <summary>
+            The base class for <see cref="T:DbObj.WarehouseExportMaterialCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.WarehouseExportMaterialCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:WarehouseImportBO">
+            <summary>
+            The base class for <see cref="T:DbObj.WarehouseImportCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.WarehouseImportCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:WarehouseImportMaterialBO">
+            <summary>
+            The base class for <see cref="T:DbObj.WarehouseImportMaterialCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.WarehouseImportMaterialCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:WarehouseImportProductPackageBO">
+            <summary>
+            The base class for <see cref="T:DbObj.WarehouseImportProductPackageCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.WarehouseImportProductPackageCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:WorkshopBO">
+            <summary>
+            The base class for <see cref="T:DbObj.WorkshopCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.WorkshopCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+        <member name="T:ZoneBO">
+            <summary>
+            The base class for <see cref="T:DbObj.ZoneCollection"/>. Provides methods 
+            for common database table operations. 
+            </summary>
+            <remarks>
+            Do not change this source code. Update the <see cref="T:DbObj.ZoneCollection"/>
+            class if you need to add or change some functionality.
+            </remarks>
+        </member>
+    </members>
+</doc>

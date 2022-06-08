@@ -1,0 +1,201 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using SystemFrameWork;
+using DbObj;
+
+public partial class usercontrol_ctlCompany : System.Web.UI.UserControl
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+            FillInfoCompany();
+    }
+
+    protected void FillInfoCompany()
+    {
+        try
+        {
+            tblConfigRow _tblConfigRow = Common.GetInfoConfigById();
+            if (_tblConfigRow != null)
+            {
+                txtCompany.Text = _tblConfigRow.IsCompanyNameNull ? string.Empty : _tblConfigRow.CompanyName;
+
+                txtFacebook.Text = _tblConfigRow.IsFacebookNull ? string.Empty : _tblConfigRow.Facebook;
+                //txtTwitter.Text = _tblConfigRow.IsTwitterNull ? string.Empty : _tblConfigRow.Twitter;
+                //txtInstagram.Text = _tblConfigRow.IsInstagramNull ? string.Empty : _tblConfigRow.Instagram;
+                //txtPinterest.Text = _tblConfigRow.IsPinterestNull ? string.Empty : _tblConfigRow.Pinterest;
+                txtYoutube.Text = _tblConfigRow.IsYoutubeNull ? string.Empty : _tblConfigRow.Youtube;
+                txtTrip.Text = _tblConfigRow.IsTripNull ? string.Empty : _tblConfigRow.Trip;
+                txtStefan.Text = _tblConfigRow.IsStefanNull ? string.Empty : _tblConfigRow.Stefan;
+                txtGoogle.Text = _tblConfigRow.IsGoogleNull ? string.Empty : _tblConfigRow.Google;
+
+                txtTitle.Text = _tblConfigRow.IsTitleNull ? string.Empty : _tblConfigRow.Title;
+                txtKeyword.Text = _tblConfigRow.IsKeywordNull ? string.Empty : _tblConfigRow.Keyword;
+                txtDescription.Text = _tblConfigRow.IsDescriptionNull ? string.Empty : _tblConfigRow.Description;
+
+                //txtTitleTour.Text = _tblConfigRow.IsSeoTitleTourNull ? string.Empty : _tblConfigRow.SeoTitleTour;
+                //txtKeyTour.Text = _tblConfigRow.IsSeoKeyTourNull ? string.Empty : _tblConfigRow.SeoKeyTour;
+                //txtDesTour.Text = _tblConfigRow.IsSeoDesTourNull ? string.Empty : _tblConfigRow.SeoDesTour;
+
+                //txtTitleAbout.Text = _tblConfigRow.IsSeoTitleAboutNull ? string.Empty : _tblConfigRow.SeoTitleAbout;
+                //txtKeyAbout.Text = _tblConfigRow.IsSeoKeyAboutNull ? string.Empty : _tblConfigRow.SeoKeyAbout;
+                //txtDesAbout.Text = _tblConfigRow.IsSeoDesAboutNull ? string.Empty : _tblConfigRow.SeoDesAbout;
+
+                //txtTitleTestimonial.Text = _tblConfigRow.IsSeoTitleTestimonialNull ? string.Empty : _tblConfigRow.SeoTitleTestimonial;
+                //txtKeyTestimonial.Text = _tblConfigRow.IsSeoKeyTestimonialNull ? string.Empty : _tblConfigRow.SeoKeyTestimonial;
+                //txtDesTestimonial.Text = _tblConfigRow.IsSeoDesTestimonialNull ? string.Empty : _tblConfigRow.SeoDesTestimonial;
+
+
+                //txtTitlePress.Text = _tblConfigRow.IsSeoTitlePressNull ? string.Empty : _tblConfigRow.SeoTitlePress;
+                //txtKeyPress.Text = _tblConfigRow.IsSeoKeyPressNull ? string.Empty : _tblConfigRow.SeoKeyPress;
+                //txtDesPress.Text = _tblConfigRow.IsSeoDesPressNull ? string.Empty : _tblConfigRow.SeoDesPress;
+
+                //txtTitleNews.Text = _tblConfigRow.IsSeoTitleNewsNull ? string.Empty : _tblConfigRow.SeoTitleNews;
+                //txtKeyNews.Text = _tblConfigRow.IsSeoKeyNewsNull ? string.Empty : _tblConfigRow.SeoKeyNews;
+                //txtDesNews.Text = _tblConfigRow.IsSeoDesNewsNull ? string.Empty : _tblConfigRow.SeoDesNews;
+
+                //txtTitleContact.Text = _tblConfigRow.IsSeoTitleContactNull ? string.Empty : _tblConfigRow.SeoTitleContact;
+                //txtKeyContact.Text = _tblConfigRow.IsSeoKeyContactNull ? string.Empty : _tblConfigRow.SeoKeyContact;
+                //txtDesContact.Text = _tblConfigRow.IsSeoDesContactNull ? string.Empty : _tblConfigRow.SeoDesContact;
+
+                //txtTitleBook.Text = _tblConfigRow.IsSeoTitleBookNull ? string.Empty : _tblConfigRow.SeoTitleBook;
+                //txtKeyBook.Text = _tblConfigRow.IsSeoKeyBookNull ? string.Empty : _tblConfigRow.SeoKeyBook;
+                //txtDesBook.Text = _tblConfigRow.IsSeoDesBookNull ? string.Empty : _tblConfigRow.SeoDesBook;
+            }
+            DataTable dt = new DataTable();
+            dt = BusinessRulesLocator.GettblCommonBO().GetAsDataTable(" Status=1 and Position='introhome'", "");
+            if (dt.Rows.Count == 1)
+            {
+                txtIntro.Value = dt.Rows[0]["Content"].ToString();
+            }
+
+            DataTable dttop = new DataTable();
+            dttop = BusinessRulesLocator.GettblCommonBO().GetAsDataTable(" Status=1 and Position='introtop'", "");
+            if (dttop.Rows.Count == 1)
+            {
+                txtTop.Value = dttop.Rows[0]["Content"].ToString();
+            }
+
+            DataTable dtfooter = new DataTable();
+            dtfooter = BusinessRulesLocator.GettblCommonBO().GetAsDataTable(" Status=1 and Position='introfooter'", "");
+            if (dtfooter.Rows.Count == 1)
+            {
+                txtFooter.Text = dtfooter.Rows[0]["Content"].ToString();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillInfoCompany");
+        }
+    }
+
+    protected tblConfigRow GetInfoConfig()
+    {
+        tblConfigRow _tblConfigRow = new tblConfigRow();
+        try
+        {
+            tblCommonRow _tblCommonRow = new tblCommonRow();
+            _tblCommonRow = BusinessRulesLocator.GettblCommonBO().GetByPrimaryKey(1);
+            _tblCommonRow.Content = txtIntro.Value;
+            BusinessRulesLocator.GettblCommonBO().Update(_tblCommonRow);
+            //Top
+            tblCommonRow _tblCommonRowT = new tblCommonRow();
+            _tblCommonRowT = BusinessRulesLocator.GettblCommonBO().GetByPrimaryKey(2);
+            _tblCommonRowT.Content = txtTop.Value;
+            BusinessRulesLocator.GettblCommonBO().Update(_tblCommonRowT);
+            //Footer
+            //Top
+            tblCommonRow _tblCommonRowF = new tblCommonRow();
+            _tblCommonRowF = BusinessRulesLocator.GettblCommonBO().GetByPrimaryKey(3);
+            _tblCommonRowF.Content = txtFooter.Text;
+            BusinessRulesLocator.GettblCommonBO().Update(_tblCommonRowF);
+
+            _tblConfigRow = Common.GetInfoConfigById();
+            if (_tblConfigRow != null)
+            {
+                _tblConfigRow.CompanyName = string.IsNullOrEmpty(txtCompany.Text) ? string.Empty : txtCompany.Text;
+                _tblConfigRow.Facebook = string.IsNullOrEmpty(txtFacebook.Text) ? string.Empty : txtFacebook.Text;
+                //_tblConfigRow.Twitter = string.IsNullOrEmpty(txtTwitter.Text) ? string.Empty : txtTwitter.Text;
+                //_tblConfigRow.Instagram = string.IsNullOrEmpty(txtInstagram.Text) ? string.Empty : txtInstagram.Text;
+                //_tblConfigRow.Pinterest = string.IsNullOrEmpty(txtPinterest.Text) ? string.Empty : txtPinterest.Text;
+                _tblConfigRow.Youtube = string.IsNullOrEmpty(txtYoutube.Text) ? string.Empty : txtYoutube.Text;
+                _tblConfigRow.Trip = string.IsNullOrEmpty(txtTrip.Text) ? string.Empty : txtTrip.Text;
+                _tblConfigRow.Stefan = string.IsNullOrEmpty(txtStefan.Text) ? string.Empty : txtStefan.Text;
+                _tblConfigRow.Google = string.IsNullOrEmpty(txtGoogle.Text) ? string.Empty : txtGoogle.Text;
+
+                _tblConfigRow.Title = string.IsNullOrEmpty(txtTitle.Text) ? string.Empty : txtTitle.Text;
+                _tblConfigRow.Keyword = string.IsNullOrEmpty(txtKeyword.Text) ? string.Empty : txtKeyword.Text;
+                _tblConfigRow.Description = string.IsNullOrEmpty(txtDescription.Text) ? string.Empty : txtDescription.Text;
+
+                //_tblConfigRow.SeoTitleTour = string.IsNullOrEmpty(txtTitleTour.Text) ? string.Empty : txtTitleTour.Text;
+                //_tblConfigRow.SeoKeyTour = string.IsNullOrEmpty(txtKeyTour.Text) ? string.Empty : txtKeyTour.Text;
+                //_tblConfigRow.SeoDesTour = string.IsNullOrEmpty(txtDesTour.Text) ? string.Empty : txtDesTour.Text;
+
+                //_tblConfigRow.SeoTitleAbout = string.IsNullOrEmpty(txtTitleAbout.Text) ? string.Empty : txtTitleAbout.Text;
+                //_tblConfigRow.SeoKeyAbout = string.IsNullOrEmpty(txtKeyAbout.Text) ? string.Empty : txtKeyAbout.Text;
+                //_tblConfigRow.SeoDesAbout = string.IsNullOrEmpty(txtDesAbout.Text) ? string.Empty : txtDesAbout.Text;
+
+                //_tblConfigRow.SeoTitleTestimonial = string.IsNullOrEmpty(txtTitleTestimonial.Text) ? string.Empty : txtTitleTestimonial.Text;
+                //_tblConfigRow.SeoKeyTestimonial = string.IsNullOrEmpty(txtKeyTestimonial.Text) ? string.Empty : txtKeyTestimonial.Text;
+                //_tblConfigRow.SeoDesTestimonial = string.IsNullOrEmpty(txtDesTestimonial.Text) ? string.Empty : txtDesTestimonial.Text;
+
+                //_tblConfigRow.SeoTitlePress = string.IsNullOrEmpty(txtTitlePress.Text) ? string.Empty : txtTitlePress.Text;
+                //_tblConfigRow.SeoKeyPress = string.IsNullOrEmpty(txtKeyPress.Text) ? string.Empty : txtKeyPress.Text;
+                //_tblConfigRow.SeoDesPress = string.IsNullOrEmpty(txtDesPress.Text) ? string.Empty : txtDesPress.Text;
+
+                //_tblConfigRow.SeoTitleNews = string.IsNullOrEmpty(txtTitleNews.Text) ? string.Empty : txtTitleNews.Text;
+                //_tblConfigRow.SeoKeyNews = string.IsNullOrEmpty(txtKeyNews.Text) ? string.Empty : txtKeyNews.Text;
+                //_tblConfigRow.SeoDesNews = string.IsNullOrEmpty(txtDesNews.Text) ? string.Empty : txtDesNews.Text;
+
+                //_tblConfigRow.SeoTitleContact = string.IsNullOrEmpty(txtTitleContact.Text) ? string.Empty : txtTitleContact.Text;
+                //_tblConfigRow.SeoKeyContact = string.IsNullOrEmpty(txtKeyContact.Text) ? string.Empty : txtKeyContact.Text;
+                //_tblConfigRow.SeoDesContact = string.IsNullOrEmpty(txtDesContact.Text) ? string.Empty : txtDesContact.Text;
+
+                //_tblConfigRow.SeoTitleBook = string.IsNullOrEmpty(txtTitleBook.Text) ? string.Empty : txtTitleBook.Text;
+                //_tblConfigRow.SeoKeyBook = string.IsNullOrEmpty(txtKeyBook.Text) ? string.Empty : txtKeyBook.Text;
+                //_tblConfigRow.SeoDesBook = string.IsNullOrEmpty(txtDesBook.Text) ? string.Empty : txtDesBook.Text;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillInfoCompany");
+        }
+        return _tblConfigRow;
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Page.IsValid)
+            {
+                tblConfigRow _tblConfigRow = GetInfoConfig();
+                if (BusinessRulesLocator.GettblConfigBO().Update(_tblConfigRow))
+                    lblMessage.Text = "You have successfully updated!";
+                else
+                    lblMessage.Text = "You have not successfully updated!";
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "btnSave_Click");
+        }
+    }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            FillInfoCompany();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "btnCancel_Click");
+        }
+    }
+}

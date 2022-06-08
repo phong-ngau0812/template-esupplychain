@@ -1,0 +1,414 @@
+
+.apexcharts-toolbar {
+    position: absolute;
+    z-index: 0 !important;
+    top: 0px;
+    right: 3px;
+    max-width: 176px;
+    text-align: right;
+    border-radius: 3px;
+    padding: 0px 6px 2px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left-sidenav-menu li > a {
+    font-size: 12.5px;
+}
+body.enlarge-menu .left-sidenav .left-sidenav-menu .leftbar-menu-item .menu-link {
+    min-height: 30px;
+    padding: 8px 22px;
+}
+/*.left-sidenav-menu li {
+    margin-top: 0px;
+}*/
+.left-sidenav-menu {
+    height: calc(85vh - 20px) !important;
+}
+.img-load {
+    width: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    opacity:0.8;
+}
+.left-sidenav .topbar-left .logo .logo-lg {
+    height: 16px;
+    margin-left: -10px;
+    display: inline-block;
+    color: #d52931;
+}
+.blue {
+    color: rgb(0, 143, 251) !important;
+}
+
+.green {
+    color: rgb(0, 227, 150) !important;
+}
+
+.orange {
+    color: rgb(254, 176, 25) !important;
+}
+
+.red {
+    color: rgb(255, 69, 96) !important;
+}
+
+.table-bordered thead th {
+    background-color: #7e94eb;
+    color: #fff !important;
+    border-color: #7e94eb !important;
+}
+
+.bg-light-alt {
+    background-color: #edf0f5 !important;
+}
+
+.weather_content {
+    color: #d52931;
+    padding: 7px 10px;
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+.text-muted {
+    color: #a4abc5 !important;
+    white-space: initial;
+}
+
+.left-sidenav-menu li > a i {
+    color: #303e67;
+}
+
+.red {
+    color: #ef4d56;
+    font-size: 15px;
+}
+
+.spinner {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    text-align: center;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    /*    background-color: #fff;*/
+    z-index: 9999;
+    -moz-opacity: 1;
+    opacity: 1;
+    filter: alpha(opacity=1);
+    /*    background: #506ee4 url(/images/loading.gif) center no-repeat;*/
+    background: #fff url(/images/loading.svg?v=22) center no-repeat;
+    background-size: 130px;
+}
+
+.textload {
+    top: 46%;
+    position: fixed;
+    top: 56%;
+    text-align: center;
+    color: #000 !important;
+    margin: 0 auto;
+    width: 100%;
+    color: white;
+}
+
+.msg-sc {
+    border: 0;
+    z-index: 5;
+    max-width: 100%;
+    padding: .25rem .5rem;
+    margin-top: .1rem;
+    font-size: .75rem;
+    line-height: 1.8;
+    color: #fff;
+    background-color: rgba(45,218,181,0.9);
+    border-radius: .25rem;
+    bottom: 3%;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.msg-sc-edit {
+    border: 0;
+    max-width: 100%;
+    padding: .5rem 1rem;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #fff;
+    background-color: rgba(45,218,181,0.9);
+    border-radius: .25rem;
+    bottom: 20px;
+    margin: 0 auto;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 999;
+    opacity: 1;
+}
+
+.right {
+    text-align: right;
+}
+
+.left {
+    text-align: left;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child:before {
+    line-height: 16px !important;
+}
+/*style paging*/
+td.PagerOtherPageCells {
+    z-index: 2;
+    color: #1f41c9;
+    text-decoration: none;
+    border-color: #eaf0f9;
+    padding: 0 !important;
+}
+
+a.PagerHyperlinkStyle {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    line-height: 1.25;
+    color: #303e67;
+    background-color: #fff;
+    border: 1px solid #eaf0f9;
+}
+
+span.PagerHyperlinkStyle {
+    z-index: 3;
+    color: #fff;
+    background-color: #506ee4;
+    border-color: #506ee4;
+    position: relative;
+    display: block;
+    padding: .55rem .75rem;
+    line-height: 1.25;
+    border: 1px solid #eaf0f9;
+}
+
+a.PagerHyperlinkStyle:hover {
+    z-index: 2;
+    color: #1f41c9;
+    text-decoration: none;
+    background-color: #f8f8fc;
+    border-color: #eaf0f9;
+}
+
+td.PagerCurrentPageCell {
+    padding: 0;
+}
+
+label.paging {
+    color: #303e67;
+    font-size: 14px;
+}
+/*end paging*/
+
+/*select 2*/
+
+.select2-container .select2-selection--single {
+    height: 37px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 38px !important;
+    height: 37px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 35px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #e8ebf3 !important;
+}
+
+.select2-dropdown {
+    border: 1px solid #e8ebf3 !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #bed8f9 !important;
+}
+/*end select2*/
+.table {
+    color: #303e67 !important;
+}
+
+.main-menu-inner .menu-body {
+    padding: 10px;
+}
+
+    .main-menu-inner .menu-body .nav-link {
+        height: auto;
+    }
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    color: #999b9b;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border: 1px solid #e8ebf3 !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 1px solid #e8ebf3 !important;
+    outline: 0;
+    border-radius: 4px !important;
+}
+
+.notification-list {
+    max-height: 220px;
+    margin-left: 0;
+    height: auto !important;
+}
+
+#btnBackFix {
+    position: fixed;
+    bottom: 10px;
+    right: 22px;
+    z-index: 9;
+    opacity: 1;
+}
+
+.select2-container--default.select2-container--disabled .select2-selection--single {
+    background-color: #f1f5fa !important;
+    cursor: default;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #f1f5fa !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #ef4d56 !important;
+}
+/*.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: #f1f5fa !important;
+}*/
+.select2-container--default .select2-search--inline .select2-search__field {
+    margin-left: 5px !important;
+}
+
+.RadComboBox_MetroTouch .rcbHovered .rcbReadOnly .rcbInputCell {
+    border-color: #e9ecef !important;
+    color: black;
+    background-color: #e9ecef !important;
+}
+
+.RadComboBox_MetroTouch .rcbHovered .rcbArrowCell {
+    border-color: #e9ecef !important;
+    color: black;
+    background-color: #e9ecef !important;
+}
+
+.left-sidenav-menu li > a {
+    padding: 7px;
+}
+
+.left-sidenav-menu {
+    padding: 10px;
+}
+
+    .left-sidenav-menu li ul {
+        padding: 0 0 0 0px;
+    }
+
+        .left-sidenav-menu li ul li > a {
+            padding: 7px 10px;
+        }
+
+.none {
+    display: none !important;
+}
+
+h5.mt-0.mb-1.font-weight-semibold {
+    white-space: normal !important;
+    color: #303e67;
+}
+
+.left-sidenav .leftbar-profile .leftbar-user.online:after {
+    display: none;
+}
+
+.div-edit {
+    width: 49%;
+    float: left;
+    text-align: center;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 1200px) {
+    .left-sidenav .topbar-left .logo .logo-sm {
+        height: 40px !important;
+        margin-right: 5px;
+    }
+
+    .weather {
+        width: 60%;
+        height: 70px;
+        padding: 10px;
+        text-transform: uppercase;
+    }
+    .left-sidenav {
+        z-index: 1000 !important;
+    }
+}
+
+.left-sidenav {
+    z-index: 1;
+}
+
+body.enlarge-menu .left-sidenav .left-sidenav-menu .leftbar-menu-item:hover .menu-link {
+    width: calc(290px + 70px) !important;
+}
+
+body.enlarge-menu .left-sidenav .left-sidenav-menu li:hover ul {
+    width: 290px !important;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1680px) {
+    body {
+        zoom: 0.85;
+    }
+}
+
+@media (max-width: 1024px) {
+    .left-sidenav {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .page-content-tab {
+        margin-top: 110px;
+    }
+
+    table.dataTable.nowrap th, table.dataTable.nowrap td {
+        white-space: inherit !important;
+    }
+
+    .msg-sc {
+        bottom: 40%;
+    }
+
+    .msg-sc-edit {
+        font-size: 14px;
+        width: 100%;
+        z-index: 999;
+        text-align: center;
+        bottom: 0px;
+    }
+}
+
+table.dataTable.nowrap th, table.dataTable.nowrap td {
+    white-space: inherit !important;
+}

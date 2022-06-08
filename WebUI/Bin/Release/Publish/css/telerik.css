@@ -1,0 +1,108 @@
+caption {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    color: #a4abc5;
+    text-align: left;
+    caption-side: bottom;
+    display: none;
+}
+
+.RadCalendarPopupShadows > .rcShadTR {
+    display: none;
+}
+
+.RadComboBox_MetroTouch .rcbInput {
+    font: 100 14px "Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+html body .RadInput_MetroTouch .riTextBox, html body .RadInputMgr_MetroTouch {
+    font-size: 14px;
+}
+
+.RadComboBox_MetroTouch .rcbFocused .rcbReadOnly .rcbInputCell {
+    border-color: #8297ec;
+    color: white;
+    background-color: #8399ec;
+}
+
+.RadComboBox_MetroTouch .rcbFocused .rcbArrowCell {
+    border-color: #8499ec;
+    color: white;
+    background-color: #8499ec;
+}
+
+
+.RadComboBoxDropDown_MetroTouch .rcbItem, .RadComboBoxDropDown_MetroTouch .rcbHovered, .RadComboBoxDropDown_MetroTouch .rcbDisabled, .RadComboBoxDropDown_MetroTouch .rcbLoading {
+    font-size: 13px;
+}
+
+.RadCalendar_MetroTouch .rcMain .rcRow a {
+    font-size: 14px;
+}
+
+.RadComboBox_MetroTouch .rcbReadOnly .rcbInputCell {
+    border-color: #f1f5fa;
+}
+.RadComboBox_MetroTouch .rcbReadOnly .rcbInputCell {
+    color: black;
+    background-color: #f1f5fa;
+}
+.RadComboBox_MetroTouch .rcbArrowCell {
+    border-color: #f1f5fa;
+}
+
+html body .RadInput_MetroTouch .riTextBox, html body .RadInputMgr_MetroTouch {
+    border-color: #e8ebf3;
+}
+
+.RadPicker_MetroTouch .rcCalPopup, .RadPicker_MetroTouch .rcTimePopup {
+    border: 1px solid #e8ebf3;
+}
+
+html body .RadInput_MetroTouch .riTextBox, html body .RadInputMgr_MetroTouch {
+    background: #fff !important;
+}
+.RadComboBox_MetroTouch .rcbArrowCell {
+    background-color: #f1f5fa;
+}
+.RadPicker_MetroTouch .rcCalPopup, .RadPicker_MetroTouch .rcTimePopup {
+    background-color: #f1f5fa !important;
+    margin-left: 0px !important;
+    border-left: none !important;
+}
+.RadComboBox_MetroTouch .rcbReadOnly.rcbFocused {
+    border-color: #8399ec !important;
+    color: white;
+    background-color: #8399ec !important;
+}
+
+.RadComboBox_MetroTouch .rcbReadOnly.rcbFocused {
+    border-color: #8399ec !important;
+    color: white;
+    background-color: #8399ec !important;
+}
+
+.RadComboBox_MetroTouch .rcbFocused .rcbActionButton {
+    background-color: #8399ec !important;
+    color: white;
+    border-color: #8399ec !important;
+}
+
+.RadComboBox_MetroTouch .rcbActionButton {
+    height: 40px !important;
+}
+.RadComboBoxDropDown .rcbCheckBox, .RadComboBoxDropDown .rcbCheckAllItemsCheckBox {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+.RadComboBox_MetroTouch .rcbActionButton {
+    border-color: #e8ebf3 !important;
+}
+.RadComboBox_MetroTouch .rcbReadOnly {
+    border-color: #e8ebf3 !important;
+}
+.RadComboBox_MetroTouch .rcbEmptyMessage {
+    color: #bbb;
+    font-style: normal !important;
+    font-size: 15px !important;
+}

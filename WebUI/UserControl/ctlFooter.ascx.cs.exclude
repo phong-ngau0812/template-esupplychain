@@ -1,0 +1,82 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using SystemFrameWork;
+using DbObj;
+using System.Data;
+
+public partial class UserControl_ctlFooter : System.Web.UI.UserControl
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            LoadMenu();
+            LoadCateTestimonial();
+            LoadData();
+        }
+    }
+    public string Facebook = string.Empty;
+    public string GooglePlus = string.Empty;
+    public string TripAdvisor = string.Empty;
+    protected void LoadData()
+    {
+        try
+        {
+          
+            tblConfigRow _tblConfigRow = new tblConfigRow();
+            _tblConfigRow = BusinessRulesLocator.GettblConfigBO().GetByPrimaryKey(1);
+            if (_tblConfigRow != null)
+            {
+                Facebook = _tblConfigRow.IsFacebookNull ? string.Empty : _tblConfigRow.Facebook;
+                GooglePlus = _tblConfigRow.IsGoogleNull ? string.Empty : _tblConfigRow.Google;
+                TripAdvisor = _tblConfigRow.IsTripNull ? string.Empty : _tblConfigRow.Trip;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "LoadData");
+        }
+    }
+    protected void LoadCateTestimonial()
+    {
+        try
+        {
+            DataTable dt = new DataTable();
+            dt = BusinessRulesLocator.Conllection().GetAllList("Select ID, Alias,Title from tblTestimonialCategory where  Status=1 Order by orderby DESC");
+            if (dt.Rows.Count > 0)
+            {
+                rptTestimonialCate.DataSource = dt;
+                rptTestimonialCate.DataBind();
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "LoadCateTestimonial");
+        }
+
+    }
+    protected void LoadMenu()
+    {
+        try
+        {
+            DataTable dtMenu = new DataTable();
+            string sql = "select ID, URL, PageName from tblPages where Status=1 and  TypePageId=3 and ParentID=24 order by OrderBy ASC";
+            dtMenu = BusinessRulesLocator.Conllection().GetAllList(sql);
+            if (dtMenu.Rows.Count > 0)
+            {
+                rptCountry.DataSource = dtMenu;
+                rptCountry.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "LoadMenu");
+        }
+    }
+   
+}

@@ -1,0 +1,169 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctlMember_L.ascx.cs" Inherits="user_ctlMember_L" %>
+<%@ Register Assembly="WizardGridView" Namespace="WizardGridView" TagPrefix="cc1" %>
+
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+<div id="box">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <h3>Member List</h3>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+
+
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td width="100%" align="left" class="noneborder">
+                        <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Bold="true"></asp:Label>
+                    </td>
+                    <%--    <td class="noneborder" align="right">
+                        <asp:Button ID="btnAdd" runat="server" CssClass="button" Text="Add New" OnClick="btnAdd_Click" Visible="true" />
+                    </td>--%>
+                </tr>
+            </table>
+            <cc1:WizardGridView ID="grvUser" runat="server" AllowPaging="True" AllowSorting="True"
+                AutoGenerateColumns="False" WizardCustomPager="True" PageSize="30" DataKeyNames="ID"
+                CssClass="listing" OnPageIndexChanging="grvUser_PageIndexChanging"
+                OnRowDeleting="grvUser_RowDeleting" OnRowEditing="grvUser_RowEditing"
+                OnRowDataBound="grvUser_RowDataBound">
+                <PagerStyle HorizontalAlign="Right"></PagerStyle>
+                <Columns>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <a href="javascript:void(0)">No</a>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblID" runat="server" Text='<%# Eval("ID").ToString() %>' Visible="false"></asp:Label>
+                            <%=No++ %>
+                        </ItemTemplate>
+                        <ItemStyle Wrap="True" Width="3%" HorizontalAlign="Right" />
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <a href="javascript:void(0)">Full Name</a>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="UserID" runat="server" Text='<%# Eval("FullName") %>' />
+                        </ItemTemplate>
+                        <ItemStyle Wrap="true" Width="15%" HorizontalAlign="left" />
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <a href="javascript:void(0)">Email</a>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblEmail" runat="server" Text='<%# Eval("Email") %>' />
+                        </ItemTemplate>
+                        <ItemStyle Wrap="true" Width="10%" HorizontalAlign="left" />
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <a href="javascript:void(0)">Register Date</a>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblRegDate" runat="server" Text='<%# Eval("RegDate","{0:dd/MM/yyyy}") %>' />
+                        </ItemTemplate>
+                        <ItemStyle Wrap="true" Width="12%" HorizontalAlign="left" />
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <a href="javascript:void(0)">Company Website</a>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblwweb" runat="server" Text='<%# Eval("Website") %>' />
+                        </ItemTemplate>
+                        <ItemStyle Wrap="true" Width="10%" HorizontalAlign="left" />
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <a href="javascript:void(0)">Company Phone</a>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblPhone" runat="server" Text='<%# Eval("Phone") %>' />
+                        </ItemTemplate>
+                        <ItemStyle Wrap="true" Width="10%" HorizontalAlign="left" />
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <a href="javascript:void(0)">Company Adress</a>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lbladd" runat="server" Text='<%# Eval("Address") %>' />
+                        </ItemTemplate>
+                        <ItemStyle Wrap="true" Width="10%" HorizontalAlign="left" />
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <a href="javascript:void(0)">Approvide</a>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status")%>' Visible="false" />
+                            <asp:CheckBox ID="chkStatus" runat="server" ClientIDMode="Static" AutoPostBack="true" OnCheckedChanged="chkStatus_OnCheckedChanged" />
+                        </ItemTemplate>
+                        <ItemStyle Wrap="true" Width="5%" HorizontalAlign="Center" />
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center">
+                        <HeaderTemplate>
+                            <a href="javascript:void(0)">Del</a>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="btDelete" Width="25px" CommandName="Delete" CommandArgument='<%# Eval("ID") %>'
+                                CausesValidation="False" runat="server" OnClientClick="return confirm('You are sure delete?');">
+                                <asp:Image ID="imgDelete" runat="server" ImageUrl="../img/icons/delete.gif" Width="16px"
+                                    Height="16px" ToolTip="Delete" />
+                            </asp:LinkButton>
+                        </ItemTemplate>
+                        <ItemStyle Width="3%" HorizontalAlign="center" />
+                    </asp:TemplateField>
+                </Columns>
+                <PagerSettings PageButtonCount="2" FirstPageText="First" LastPageText="Last" NextPageText="Next"
+                    PreviousPageText="Previous" Position="Bottom"></PagerSettings>
+            </cc1:WizardGridView>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <div id="spinner" class="spinner" style="display: none;">
+        <div class="img">
+            <img id="img-spinner" src="/images/ajax-loader.gif" alt="Loading" />
+            <br />
+            <span id="ctl00_ContentPlaceHolder1_lblSending" style="color: #FFF; font-weight: bold;">Processing...</span>
+        </div>
+    </div>
+    <style>
+        .spinner {
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            text-align: center;
+            overflow: auto;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.8;
+            opacity: .80;
+            filter: alpha(opacity=80);
+        }
+
+            .spinner .img {
+                position: fixed;
+                top: 40%;
+                left: 50%;
+                margin-left: -110px;
+                margin-top: -10px;
+                text-align: center;
+                overflow: auto;
+            }
+    </style>
+    <script>
+        $("#chkStatus").change(function () {
+            if (this.checked) {
+                Show();
+            }
+        });
+        function Show() {
+            $('#spinner').delay("slow").show();
+        }
+        function Hide() {
+            $('#spinner').delay("slow").hide();
+        }
+    </script>
+</div>

@@ -1,0 +1,449 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using SystemFrameWork;
+using DbObj;
+
+public partial class user_ctlRole_E : System.Web.UI.UserControl
+{
+    protected string lang = Systemconstants.Francais;
+    protected string mode = string.Empty;
+    protected int RoleID = 0;
+    protected int No = 1;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(Request["lang"]))
+            lang = Request["lang"].ToString();
+
+        if (!string.IsNullOrEmpty(Request["mode"]))
+            mode = Request["mode"].ToString();
+        if (!string.IsNullOrEmpty(Request["RoleID"]))
+            int.TryParse(Request["RoleID"].ToString(),out RoleID);
+
+        lblMessage.Text = string.Empty;
+        if (!IsPostBack)
+        {
+            Init();
+            FillDDLRole();
+            FillInfoRole();
+            FillGridView();
+        }
+    }
+
+    protected void Init()
+    {
+        if (mode.ToLower().Equals("add"))
+        {
+            lblTitle.Text = "Add New";
+            tdRoleSetting.Visible = false;
+        }
+        else if (mode.ToLower().Equals("edit"))
+        {
+            lblTitle.Text = "Edit";
+            tdRoleSetting.Visible = true;
+        }
+    }
+
+    protected void FillDDLRole()
+    {
+        DataTable dtResult = new DataTable();
+        string strWhere = string.Empty;
+        string strOrder = string.Empty;
+        try
+        {
+            if(mode.ToLower().Equals("edit"))
+                strWhere = " ID <> " + RoleID.ToString();
+            strOrder = "OrderBy ASC, RegDate DESC";
+            dtResult = BusinessRulesLocator.GettblRoleBO().GetAsDataTable(strWhere, strOrder);
+            ddlRole.DataSource = dtResult;
+            ddlRole.DataValueField = "ID";
+            ddlRole.DataTextField = "RoleName";
+            ddlRole.DataBind();
+            ddlRole.SelectedIndex = -1;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillDDLRole");
+        }
+    }
+
+    protected void FillInfoRole()
+    {
+        try
+        {
+            tblRoleRow _tblRoleRow = GetInfoRoleById(RoleID);
+            if (_tblRoleRow != null)
+            {
+                txtRoleName.Text = _tblRoleRow.IsRoleNameNull ? string.Empty : _tblRoleRow.RoleName;
+                if (ddlRole.Items.Count > 0)
+                {
+                    tblRoleRow FirstRow = GetInfoRoleById(int.Parse(ddlRole.Items[0].Value));
+                    tblRoleRow LastRow = GetInfoRoleById(int.Parse(ddlRole.Items[ddlRole.Items.Count - 1].Value));
+                    if (FirstRow != null && LastRow != null)
+                    {
+                        if (_tblRoleRow.OrderBy < FirstRow.OrderBy)
+                        {
+                            rdoBefore.Checked = true;
+                            rdoAfter.Checked = false;
+                            ddlRole.SelectedValue = FirstRow.ID.ToString();
+                        }
+                        else if (_tblRoleRow.OrderBy > LastRow.OrderBy)
+                        {
+                            rdoBefore.Checked = false;
+                            rdoAfter.Checked = true;
+                            ddlRole.SelectedValue = LastRow.ID.ToString();
+                        }
+                        else
+                        {
+                            for (int i = 0; i < ddlRole.Items.Count; i++)
+                            {
+                                tblRoleRow Row = GetInfoRoleById(int.Parse(ddlRole.Items[i].Value));
+                                tblRoleRow NextRow = GetInfoRoleById(int.Parse(ddlRole.Items[i + 1].Value));
+                                if (Row != null && NextRow != null)
+                                {
+                                    if (_tblRoleRow.OrderBy > Row.OrderBy && _tblRoleRow.OrderBy < NextRow.OrderBy)
+                                    {
+                                        rdoBefore.Checked = true;
+                                        rdoAfter.Checked = false;
+                                        ddlRole.SelectedValue = NextRow.ID.ToString();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillInfoRole");
+        }
+    }
+
+    protected tblRoleRow GetInfoRole()
+    {
+        tblRoleRow _tblRoleRow = new tblRoleRow();
+        try
+        {
+            if (mode.ToLower().Equals("edit"))
+            {
+                _tblRoleRow = GetInfoRoleById(RoleID);
+            }
+            _tblRoleRow.RoleName = string.IsNullOrEmpty(txtRoleName.Text.Trim()) ? string.Empty : txtRoleName.Text.Trim();
+
+            if (ddlRole.Items.Count > 0)
+            {
+                tblRoleRow LastRow = GetInfoRoleById(int.Parse(ddlRole.Items[ddlRole.Items.Count - 1].Value));
+                tblRoleRow SelectedRow = GetInfoRoleById(int.Parse(ddlRole.Items[ddlRole.SelectedIndex].Value));
+
+                if (SelectedRow != null)
+                {
+                    if (rdoBefore.Checked)
+                    {
+                        _tblRoleRow.OrderBy = SelectedRow.OrderBy;
+                    }
+                    else if (rdoAfter.Checked)
+                    {
+                        _tblRoleRow.OrderBy = SelectedRow.OrderBy + 2;
+                    }
+                }
+                else
+                {
+                    _tblRoleRow.OrderBy = LastRow.OrderBy + 2;
+                }
+            }
+            else
+                _tblRoleRow.OrderBy = 1;
+
+            for (int i = ddlRole.SelectedIndex; i < ddlRole.Items.Count;i++ )
+            {
+                tblRoleRow row = null;
+                if (rdoBefore.Checked)
+                {
+                    row = GetInfoRoleById(int.Parse(ddlRole.Items[i].Value));
+                    row.OrderBy = row.OrderBy + 2;
+                }
+                else if (rdoAfter.Checked)
+                {
+                    if ((i+1)<ddlRole.Items.Count)
+                    {
+                        row = GetInfoRoleById(int.Parse(ddlRole.Items[i + 1].Value));
+                        row.OrderBy = row.OrderBy + 2;
+                    }
+                }
+                if(row!=null)
+                    BusinessRulesLocator.GettblRoleBO().Update(row);
+            }
+            _tblRoleRow.RegDate = DateTime.Now;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetInfoRole");
+        }
+        return _tblRoleRow;
+    }
+
+    protected tblRoleRow GetInfoRoleById(int _Id)
+    {
+        tblRoleRow _tblRoleRow = new tblRoleRow();
+        try
+        {
+            _tblRoleRow = BusinessRulesLocator.GettblRoleBO().GetByPrimaryKey(_Id);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetInfoRoleById");
+        }
+        return _tblRoleRow;
+    }
+
+    protected void ClearForm()
+    {
+        txtRoleName.Text = string.Empty;
+        rdoBefore.Checked = true;
+        rdoAfter.Checked = false;
+        ddlRole.SelectedIndex = -1;
+    }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Response.Redirect("Role_L.aspx?lang=" + lang, false);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "btnCancel_Click");
+        }
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Page.IsValid)
+            {
+                tblRoleRow _tblRoleRow = GetInfoRole();
+                if (mode.ToLower().Equals("add"))
+                {
+                    BusinessRulesLocator.GettblRoleBO().Insert(_tblRoleRow);
+                    if (!_tblRoleRow.IsIDNull)
+                    {
+                        InsertPermissionRole(_tblRoleRow.ID);
+                        ClearForm();
+                        lblMessage.Text = "You have successfully inserted!";
+                    }
+                }
+                else if (mode.ToLower().Equals("edit"))
+                {
+                    if (BusinessRulesLocator.GettblRoleBO().Update(_tblRoleRow))
+                    {
+                        lblMessage.Text = "You have successfully updated!";
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "btnSave_Click");
+        }
+    }
+
+    protected void InsertPermissionRole(int _RoleID)
+    {
+        try
+        {
+            DataTable dtResult = new DataTable();
+            dtResult = BusinessRulesLocator.GettblFunctionBO().GetAllAsDataTable();
+            if (dtResult != null && dtResult.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtResult.Rows)
+                {
+                    tblPermissionRoleRow _tblPermissionRoleRow = new tblPermissionRoleRow();
+                    _tblPermissionRoleRow.RoleID = _RoleID;
+                    _tblPermissionRoleRow.FunctionID = int.Parse(row["ID"].ToString());
+                    _tblPermissionRoleRow.PermissionFlg = -1;
+                    BusinessRulesLocator.GettblPermissionRoleBO().Insert(_tblPermissionRoleRow);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "InsertPermissionRole");
+        }
+    }
+
+    protected void FillGridView()
+    {
+        DataTable dtResult = new DataTable();
+        try
+        {
+            dtResult = GetDataTablePermissionRole();
+            if (dtResult != null)
+            {
+                if (dtResult.Rows.Count > 0)
+                {
+                    grvFunction.DataSource = dtResult;
+                    grvFunction.DataBind();
+                }
+                else
+                {
+                    Common.BuidNoRecord(dtResult, grvFunction);
+                }
+            }
+            else
+            {
+                Common.BuidNoRecord(dtResult, grvFunction);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillGridView");
+        }
+    }
+
+    protected DataTable GetDataTablePermissionRole()
+    {
+        DataTable dtResult = new DataTable();
+        string strWhere = string.Empty;
+        string strOrder = string.Empty;
+        try
+        {
+            strWhere = "RoleID = " + RoleID.ToString() + " Or RoleID is NULL";
+            strOrder = "OrderBy ASC";
+            dtResult = BusinessRulesLocator.GettblPermissionRoleBO().GetDataByWhere(strWhere, strOrder);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillGridView");
+        }
+        return dtResult;
+    }
+
+    protected void chkAllow_OnCheckedChanged(object sender, System.EventArgs e)
+    {
+        try
+        {
+            CheckBox chkAllow = (CheckBox)sender;
+            GridViewRow row = (GridViewRow)chkAllow.NamingContainer;
+            Label lblID = (Label)row.FindControl("lblID");
+            int FunctionID = 0;
+            int.TryParse(lblID.Text, out FunctionID);
+            tblPermissionRoleRow _tblPermissionRoleRow = BusinessRulesLocator.GettblPermissionRoleBO().GetByPrimaryKey(RoleID, FunctionID);
+            if (_tblPermissionRoleRow == null)
+            {
+                _tblPermissionRoleRow = new tblPermissionRoleRow();
+                _tblPermissionRoleRow.RoleID = RoleID;
+                _tblPermissionRoleRow.FunctionID = FunctionID;
+                if(chkAllow.Checked)
+                    _tblPermissionRoleRow.PermissionFlg = 1;
+                else
+                    _tblPermissionRoleRow.PermissionFlg = -1;
+                BusinessRulesLocator.GettblPermissionRoleBO().Insert(_tblPermissionRoleRow);
+                lblMessage2.Text = "You have successfully settings!";
+            }
+            else
+            {
+                if (chkAllow.Checked)
+                    _tblPermissionRoleRow.PermissionFlg = 1;
+                else
+                    _tblPermissionRoleRow.PermissionFlg = -1;
+                if (BusinessRulesLocator.GettblPermissionRoleBO().Update(_tblPermissionRoleRow))
+                    lblMessage2.Text = "You have successfully settings!";
+            }
+            FillGridView();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "chkHot_OnCheckedChanged");
+        }
+    }
+
+    protected void chkNotAllow_OnCheckedChanged(object sender, System.EventArgs e)
+    {
+        try
+        {
+            CheckBox chkNotAllow = (CheckBox)sender;
+            GridViewRow row = (GridViewRow)chkNotAllow.NamingContainer;
+            Label lblID = (Label)row.FindControl("lblID");
+            int FunctionID = 0;
+            int.TryParse(lblID.Text, out FunctionID);
+            tblPermissionRoleRow _tblPermissionRoleRow = BusinessRulesLocator.GettblPermissionRoleBO().GetByPrimaryKey(RoleID, FunctionID);
+            if (_tblPermissionRoleRow == null)
+            {
+                _tblPermissionRoleRow = new tblPermissionRoleRow();
+                _tblPermissionRoleRow.RoleID = RoleID;
+                _tblPermissionRoleRow.FunctionID = FunctionID;
+                if(chkNotAllow.Checked)
+                    _tblPermissionRoleRow.PermissionFlg = 0;
+                else
+                    _tblPermissionRoleRow.PermissionFlg = -1;
+                BusinessRulesLocator.GettblPermissionRoleBO().Insert(_tblPermissionRoleRow);
+                lblMessage2.Text = "You have successfully settings!";
+            }
+            else
+            {
+                if (chkNotAllow.Checked)
+                    _tblPermissionRoleRow.PermissionFlg = 0;
+                else
+                    _tblPermissionRoleRow.PermissionFlg = -1;
+                if (BusinessRulesLocator.GettblPermissionRoleBO().Update(_tblPermissionRoleRow))
+                    lblMessage2.Text = "You have successfully settings!";
+            }
+            FillGridView();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "chkHot_OnCheckedChanged");
+        }
+    }
+
+    protected void grvFunction_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblID = (Label)e.Row.FindControl("lblID");
+                CheckBox chkAllow = (CheckBox)e.Row.FindControl("chkAllow");
+                CheckBox chkNotAllow = (CheckBox)e.Row.FindControl("chkNotAllow");
+
+                if (lblID == null || chkAllow == null || chkNotAllow == null)
+                    return;
+
+                int FunctionID = 0;
+                int.TryParse(lblID.Text, out FunctionID);
+                tblPermissionRoleRow _tblPermissionRoleRow = BusinessRulesLocator.GettblPermissionRoleBO().GetByPrimaryKey(RoleID, FunctionID);
+                if (_tblPermissionRoleRow != null)
+                {
+                    //Allow (View, Edit, Delete, Add)
+                    if (_tblPermissionRoleRow.PermissionFlg == 1)
+                    {
+                        chkAllow.Checked = true;
+                        chkNotAllow.Checked = false;
+                    }//Not Allow
+                    else if (_tblPermissionRoleRow.PermissionFlg == 0)
+                    {
+                        chkAllow.Checked = false;
+                        chkNotAllow.Checked = true;
+                    }
+                }
+                else
+                {   //Not setting
+                    chkAllow.Checked = false;
+                    chkNotAllow.Checked = false;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvFunction_RowDataBound");
+        }
+    }
+}

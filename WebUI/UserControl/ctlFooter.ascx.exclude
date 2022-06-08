@@ -1,0 +1,95 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctlFooter.ascx.cs" Inherits="UserControl_ctlFooter" %>
+<footer>
+    <section class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <h5><b>Newsletter Sign up</b></h5>
+                    <div class="control-container">
+                        <input type="text" name="signup-email" id="signup-email" placeholder="Your Email Address" class="form-field">
+                        <span class="button-new" onclick="InsertEmail();">SUBSCRIBE</span>
+                    </div>
+                    <img src="/images/loading.gif" class="loading-img" />
+                    <div class="clearfix"></div>
+                    <h4 class="txtMess"></h4>
+                    <br>
+                    <h5 class="pull-left"><b>Follow us</b></h5>
+                    <a href="<%=Facebook %>" target="_blank" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="<%=GooglePlus %>" target="_blank" class="social"><i class="fab fa-google-plus"></i></a>
+                    <a href="<%=TripAdvisor %>" target="_blank" class="social"><i class="fab fa-tripadvisor"></i></a>
+
+                    <div class="clearfix"></div>
+                    <a  style="margin-top:10px; float:left; position:relative" target="_blank" rel="nofollow" href="<%=TripAdvisor %>">
+                        <img src="/images/advisor-en2015.png" alt="alt"></a>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5><b>Our tours</b></h5>
+
+                            <ul class="list-unstyled text-small">
+                                <asp:Repeater runat="server" ID="rptCountry">
+                                    <ItemTemplate>
+                                        <li><a href="/tours/<%#Eval("Url") %>" class="text-muted"><%#Eval("PageName") %> tours</a></li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h5><b>As Tour Operator</b></h5>
+                            <ul class="list-unstyled text-small">
+                                <li><a href="/why-travel-with-us" class="text-muted">Why Travel With Us</a></li>
+                                <li><a href="/about-vietnamstay" class="text-muted">About Us</a></li>
+                                <li><a href="/team/vietnamstay-team" class="text-muted">Meet Vietnamstay Team</a></li>
+                                <li><a href="/responsible-travel" class="text-muted">Responsible Travel</a></li>
+                                <li><a href="/terms-conditions" class="text-muted">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h5><b>Destinations</b></h5>
+                            <ul class="list-unstyled text-small">
+                                <li><a href="/vietnam-overview" class="text-muted">Vietnam</a></li>
+                                <li><a href="/laos-overview" class="text-muted">Laos</a></li>
+                                <li><a href="/cambodia-overview" class="text-muted">Cambodia</a></li>
+                                <li><a href="/thailand-overview" class="text-muted">Thailand</a></li>
+                                <li><a href="/myanmar-overview" class="text-muted">Myanmar</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h5><b>Testimonials</b></h5>
+                            <ul class="list-unstyled text-small">
+                                <asp:Repeater runat="server" ID="rptTestimonialCate">
+                                    <ItemTemplate>
+                                        <li><a href="/testimonial/<%#Eval("Alias") %>" class="text-muted"><%#Eval("Title") %></a></li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</footer>
+<section class="sub-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <small class="d-block my-3 text-muted">Copyright© Vietnamstay 2015, All Right Reserved</small>
+            </div>
+            <div class="col-md-8">
+                <ul class="pull-right list-unstyled list-inline">
+                    <li><a href="https://www.evietnamvisa.net/" target="_blank" class="text-muted">Visa Service</a></li>
+                    <li><a href="/travel/news" class="text-muted">News</a></li>
+                    <li><a href="/blog" class="text-muted">Blog</a></li>
+                    <li><a href="/private-policy" class="text-muted">Private Policy</a></li>
+                    <li><a href="/contact-us" class="text-muted">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,212 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using SystemFrameWork;
+using DbObj;
+
+public partial class UserControl_ctlMenuHeader : System.Web.UI.UserControl
+{
+    //private string url = HttpContext.Current.Request.Url.Host;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            //LoadDestinationCategory();
+            LoadMenuTour();
+            LoadData();
+        }
+    }
+
+    public string Facebook = string.Empty;
+    public string GooglePlus = string.Empty;
+    public string TripAdvisor = string.Empty;
+    protected void LoadData()
+    {
+        try
+        {
+            tblCommonRow _tblCommonRowT = new tblCommonRow();
+            _tblCommonRowT = BusinessRulesLocator.GettblCommonBO().GetByPrimaryKey(2);
+            IntroTop.Text = _tblCommonRowT.IsContentNull ? string.Empty : _tblCommonRowT.Content;
+
+            tblConfigRow _tblConfigRow = new tblConfigRow();
+            _tblConfigRow = BusinessRulesLocator.GettblConfigBO().GetByPrimaryKey(1);
+            if (_tblConfigRow != null)
+            {
+                Facebook = _tblConfigRow.IsFacebookNull ? string.Empty : _tblConfigRow.Facebook;
+                GooglePlus = _tblConfigRow.IsGoogleNull ? string.Empty : _tblConfigRow.Google;
+                TripAdvisor = _tblConfigRow.IsTripNull ? string.Empty : _tblConfigRow.Trip;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "LoadData");
+        }
+    }
+    protected void LoadMenuTour()
+    {
+        try
+        {
+            DataTable dtCountry = new DataTable();
+            DataTable dtCity = new DataTable();
+            DataTable dtStyle = new DataTable();
+            DataTable dtDuration = new DataTable();
+            string sqldtCountry = "select PageName, url from tblPages where Status=1 and  TypePageId=3 and ParentID=24 order by OrderBy ASC";
+            //string sqldtCity = "select PageName, url from tblPages where Status<>-1 and  TypePageId=3 and ParentID=25 order by OrderBy ASC";
+            //string sqldtStyle = "select PageName, url from tblPages where Status<>-1 and  TypePageId=3 and ParentID=26 order by OrderBy ASC";
+            //string sqldtDuration = "select PageName, url from tblPages where Status<>-1 and  TypePageId=3 and ParentID=27 order by OrderBy ASC";
+            dtCountry = BusinessRulesLocator.Conllection().GetAllList(sqldtCountry);
+            //dtCity = BusinessRulesLocator.Conllection().GetAllList(sqldtCity);
+            //dtStyle = BusinessRulesLocator.Conllection().GetAllList(sqldtStyle);
+            //dtDuration = BusinessRulesLocator.Conllection().GetAllList(sqldtDuration);
+            rptTourCountry.DataSource = dtCountry;
+            rptTourCountry.DataBind();
+            //rptTourCity.DataSource = dtCity;
+            //rptTourCity.DataBind();
+            //rptTourStyle.DataSource = dtStyle;
+            //rptTourStyle.DataBind();
+            //rptTourDuration.DataSource = dtDuration;
+            //rptTourDuration.DataBind();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "LoadMenuTour");
+        }
+    }
+    //protected void LoadDestinationCategory()
+    //{
+    //    DataTable dtResult = new DataTable();
+    //    try
+    //    {
+    //        string sql = " select ID, PageName, url, ImageThumb,LinkTo from tblPages where Status<>-1 and ParentID=2 order by OrderBy ASC";
+    //        dtResult = BusinessRulesLocator.Conllection().GetAllList(sql);
+    //        if (dtResult.Rows.Count > 0)
+    //        {
+    //            rptDestinationCategory.DataSource = dtResult;
+    //            rptDestinationCategory.DataBind();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Log.writeLog(ex.ToString(), "GetDataByWhere");
+    //    }
+
+    //}
+
+    protected void rptDestinationCategory_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        try
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Literal lblID = e.Item.FindControl("lblID") as Literal;
+                //Literal lblImageCountryTour = e.Item.FindControl("lblImageCountryTour") as Literal;
+                Repeater rptDestination = e.Item.FindControl("rptDestination") as Repeater;
+                if (!string.IsNullOrEmpty(lblID.Text))
+                {
+                    DataTable dtResult = new DataTable();
+                    string strWhere = string.Empty;
+                    string strOrder = string.Empty;
+                    strOrder = " order by OrderBy ASC";
+                    strWhere += " and ParentID=" + lblID.Text;
+                    string sql = " select ID, PageName, url, ImageThumb,LinkTo, ParentID from tblPages where Status<>-1";
+                    //if (lblID.Text == "99")
+                    //{
+                    //    dtResult = BusinessRulesLocator.Conllection().GetAllList(sql + strWhere + strOrder);
+                    //}
+                    //else
+                    //{
+                    dtResult = BusinessRulesLocator.Conllection().GetAllList(sql + " and ShowOnMainMenu=1 " + strWhere + strOrder);
+                    //}
+                    if (dtResult.Rows.Count > 0)
+                    {
+                        rptDestination.DataSource = dtResult;
+                        rptDestination.DataBind();
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "rptDestinationCategory_ItemDataBound");
+        }
+    }
+    protected string CheckImgCountry(object objImage)
+    {
+        string result = string.Empty;
+        string PhysicalPath = CommonBO.GetCountryFolderPhysicalPath.Replace("/", "\\");
+        string HomePath = CommonBO.GetCountryFolderHomePath.Replace("\\", "/");
+        if (!PhysicalPath.EndsWith("\\"))
+            PhysicalPath += "\\";
+        if (!HomePath.EndsWith("/"))
+            HomePath += "/";
+        if (File.Exists(PhysicalPath + objImage.ToString()))
+            result = HomePath + objImage.ToString();
+        return result;
+    }
+    [System.Web.Services.WebMethod]
+    public static int InsertContact(string name, string email, string phone, string message)
+    {
+        int result = 0;
+        try
+        {
+            if (!string.IsNullOrEmpty(name.Trim()) && !string.IsNullOrEmpty(email.Trim()) && !string.IsNullOrEmpty(phone.Trim()) && !string.IsNullOrEmpty(message.Trim()))
+            {
+                tblContactRow _tblContactRow = new tblContactRow();
+                _tblContactRow.FirstName = name;
+                _tblContactRow.Email = email;
+                _tblContactRow.Telephone = phone;
+                _tblContactRow.Request = message;
+                _tblContactRow.PostedDate = DateTime.Now;
+                _tblContactRow.Status = 1;
+                try
+                {
+                    string IPAddress = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"].ToString();
+                    _tblContactRow.IPAddress = IPAddress;
+
+                    Tools.GetLocation.IVisitorsGeographicalLocation _objLocation;
+                    _objLocation = new Tools.GetLocation.ClsVisitorsGeographicalLocation();
+                    DataTable _objDataTable = _objLocation.GetLocation(IPAddress);
+                    if (_objDataTable != null)
+                    {
+                        if (_objDataTable.Rows.Count > 0)
+                        {
+                            _tblContactRow.IPCity = Convert.ToString(_objDataTable.Rows[0]["city"]);
+                            _tblContactRow.IPRegion = Convert.ToString(_objDataTable.Rows[0]["regionName"]);
+                            _tblContactRow.IPCountry = Convert.ToString(_objDataTable.Rows[0]["country"]);
+                        }
+                        else
+                        {
+                            _tblContactRow.IPCity = string.Empty;
+                            _tblContactRow.IPRegion = string.Empty;
+                            _tblContactRow.IPCountry = string.Empty;
+                        }
+                    }
+                    else
+                    {
+                        _tblContactRow.IPCity = string.Empty;
+                        _tblContactRow.IPRegion = string.Empty;
+                        _tblContactRow.IPCountry = string.Empty;
+                    }
+                }
+                catch (Exception ex1)
+                {
+                    _tblContactRow.IPCity = string.Empty;
+                    _tblContactRow.IPRegion = string.Empty;
+                    _tblContactRow.IPCountry = string.Empty;
+                    Log.writeLog(ex1.ToString(), "GetInfoContact");
+                }
+                result = 1;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "InsertContact");
+        }
+        return result;
+    }
+}

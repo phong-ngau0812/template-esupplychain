@@ -1,0 +1,275 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using SystemFrameWork;
+using DbObj;
+using System.Drawing;
+using System.Net.Mail;
+using System.Net;
+
+public partial class user_ctlMember_L : System.Web.UI.UserControl
+{
+    protected string lang = Systemconstants.Deutsch;
+    protected int No = 1;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        lblMessage.Text = string.Empty;
+        if (!IsPostBack)
+        {
+            FillGridView();
+        }
+    }
+
+    protected void FillGridView()
+    {
+        DataTable dtResult = new DataTable();
+        try
+        {
+            dtResult = GetDataTableUser();
+            if (dtResult != null)
+            {
+                if (dtResult.Rows.Count > 0)
+                {
+                    grvUser.DataSource = dtResult;
+                    grvUser.DataBind();
+                }
+                else
+                {
+                    Common.BuidNoRecord(dtResult, grvUser);
+                }
+            }
+            else
+            {
+                Common.BuidNoRecord(dtResult, grvUser);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillGridView");
+        }
+    }
+
+    protected DataTable GetDataTableUser()
+    {
+        DataTable dtResult = new DataTable();
+        string strWhere = string.Empty;
+        string strOrder = string.Empty;
+        try
+        {
+            strWhere = "Status<>-1";
+            strOrder = "RegDate DESC";
+            dtResult = BusinessRulesLocator.GettblMemberBO().GetAsDataTable(strWhere, strOrder);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetDataTableUser");
+        }
+        return dtResult;
+    }
+
+    protected void grvUser_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        try
+        {
+            int _id = int.Parse(grvUser.DataKeys[e.NewEditIndex].Value.ToString());
+            Response.Redirect("User_E.aspx?mode=edit&UserID=" + _id.ToString(), false);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_RowEditing");
+        }
+    }
+
+    protected void grvUser_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            lblMessage.Text = string.Empty;
+            grvUser.PageIndex = e.NewPageIndex;
+            FillGridView();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_PageIndexChanging");
+        }
+    }
+
+    protected void grvUser_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        try
+        {
+            int _id = int.Parse(grvUser.DataKeys[e.RowIndex].Value.ToString());
+            tblMemberRow _tblUserRow = BusinessRulesLocator.GettblMemberBO().GetByPrimaryKey(_id);
+            if (_tblUserRow != null)
+            {
+                _tblUserRow.Status = -1;
+                if (BusinessRulesLocator.GettblMemberBO().Update(_tblUserRow))
+                    lblMessage.Text = "You are deleted a Row successfully!";
+                else
+                    lblMessage.Text = "You are deleted a Row failed!";
+
+                FillGridView();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_RowDeleting");
+            lblMessage.Text = "You can not delete this record!";
+        }
+    }
+
+    protected void grvUser_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblStatus = (Label)(e.Row.FindControl("lblStatus"));
+                CheckBox chkStatus = (CheckBox)(e.Row.FindControl("chkStatus"));
+
+                if (lblStatus == null || chkStatus == null)
+                    return;
+
+                if (lblStatus.Text.Trim().Equals("1"))
+                    chkStatus.Checked = true;
+                else if (lblStatus.Text.Trim().Equals("0"))
+                    chkStatus.Checked = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_RowDataBound");
+        }
+    }
+
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("User_E.aspx?mode=add");
+    }
+
+    protected void chkStatus_OnCheckedChanged(object sender, System.EventArgs e)
+    {
+        try
+        {
+            CheckBox chkStatus = (CheckBox)sender;
+            GridViewRow row = (GridViewRow)chkStatus.NamingContainer;
+            Label lblID = (Label)row.FindControl("lblID");
+
+            if (!string.IsNullOrEmpty(lblID.Text.Trim()))
+            {
+                int _Id = 0;
+                int.TryParse(lblID.Text.Trim(), out _Id);
+                tblMemberRow _tblPagesRow = GetInfomemberById(_Id);
+                if (_tblPagesRow != null)
+                {
+
+                    if (chkStatus.Checked)
+                    {
+                        //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "Show();", true);
+                        _tblPagesRow.Status = 1;
+                        if (SendMail(_tblPagesRow.FullName, _tblPagesRow.Email))
+                        {
+                            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "Hide();", true);
+                        }
+                    }
+                    else
+                        _tblPagesRow.Status = 0;
+                    if (BusinessRulesLocator.GettblMemberBO().Update(_tblPagesRow))
+                    {
+                        lblMessage.Text = "You have successfully updated!";
+                        lblMessage.ForeColor = Color.Green;
+                        FillGridView();
+                    }
+
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "chkStatus_OnCheckedChanged");
+        }
+    }
+    protected static bool SendMail(string fullname, string email)
+    {
+        bool bValue = false;
+        tblConfigRow _tblConfigRow = new tblConfigRow();
+        int ID = 1;
+        try
+        {
+            _tblConfigRow = BusinessRulesLocator.GettblConfigBO().GetByPrimaryKey(ID);
+            if (_tblConfigRow != null)
+            {
+                string EmailTo = email;
+                string EmailSend = _tblConfigRow.IsEmailAddressNull ? string.Empty : _tblConfigRow.EmailAddress;
+                string PassEmailSend = _tblConfigRow.IsPasswordNull ? string.Empty : _tblConfigRow.Password;
+                if (!string.IsNullOrEmpty(EmailSend) && !string.IsNullOrEmpty(PassEmailSend))
+                {
+                    SmtpClient client = new SmtpClient
+                    {
+                        Host = _tblConfigRow.SMTPServer,
+                        Port = _tblConfigRow.SMTPPort,
+                        EnableSsl = _tblConfigRow.IsSSL,
+                        UseDefaultCredentials = true
+                    };
+                    MailAddress from = new MailAddress(EmailSend);
+                    MailAddress to = new MailAddress(EmailTo);
+                    MailMessage message = new MailMessage(from, to);
+                    message.Priority = MailPriority.Normal;
+                    message.IsBodyHtml = true;
+                    message.Body = BodyEmail(fullname);
+                    message.Subject = "Your account has been Approved";
+                    NetworkCredential myCreds = new NetworkCredential(EmailSend, PassEmailSend);
+                    client.Credentials = myCreds;
+                    client.Send(message);
+                    bValue = true;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendEmail");
+        }
+        return bValue;
+    }
+
+    protected static string BodyEmail(string fullname)
+    {
+        string strBody = "";
+        try
+        {
+            strBody = "<b style='color: #336601'>Dear Mr./Ms. " + fullname + ",</b>";
+
+            strBody += "<br/>";
+            strBody += "<br/>";
+            strBody += "We are happy to inform that your request for Aurora Travel & DMC download center is approved.<br> You now can use your registered email address and password to log in.";
+            strBody += "<br /><br />";
+
+            strBody += "If you have any difficulties when logging in, please contact us at <a href='mailto:sale@auroratravel.asia'>sale@auroratravel.asia</a>.";
+            strBody += "<br><br><b style=\"color: #336601\">Best regards,</b>";
+            strBody += "<br />";
+            strBody += "<b><i>Aurora Travel & DMC Team</i></b>";
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "BodyEmail");
+        }
+        return strBody;
+    }
+    protected tblMemberRow GetInfomemberById(int _Id)
+    {
+        tblMemberRow _tblContactRow = new tblMemberRow();
+        try
+        {
+            _tblContactRow = BusinessRulesLocator.GettblMemberBO().GetByPrimaryKey(_Id);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetInfoContactById");
+        }
+        return _tblContactRow;
+    }
+}

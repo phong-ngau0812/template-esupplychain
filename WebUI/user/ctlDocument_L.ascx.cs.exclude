@@ -1,0 +1,242 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using SystemFrameWork;
+using DbObj;
+using System.Drawing;
+
+public partial class user_ctlDocument_L : System.Web.UI.UserControl
+{
+    protected string lang = Systemconstants.Deutsch;
+    protected int No = 1;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        lblMessage.Text = string.Empty;
+
+        if (!IsPostBack)
+        {
+            FillGridView();
+        }
+    }
+
+    protected void FillGridView()
+    {
+        DataTable dtResult = new DataTable();
+        try
+        {
+            dtResult = GetDataTableUser();
+            if (dtResult != null)
+            {
+                if (dtResult.Rows.Count > 0)
+                {
+                    grvUser.DataSource = dtResult;
+                    grvUser.DataBind();
+                }
+                else
+                {
+                    Common.BuidNoRecord(dtResult, grvUser);
+                }
+            }
+            else
+            {
+                Common.BuidNoRecord(dtResult, grvUser);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillGridView");
+        }
+    }
+
+    protected DataTable GetDataTableUser()
+    {
+        DataTable dtResult = new DataTable();
+        string strWhere = string.Empty;
+        string strOrder = string.Empty;
+        try
+        {
+            strWhere = "Status<>-1";
+            if (ddlCategory.SelectedValue!="0")
+            {
+                strWhere += " and DownloadCategory="+ddlCategory.SelectedValue;
+            }
+            if (ddlLang.SelectedValue != "0")
+            {
+                strWhere += " and Lang='" + ddlLang.SelectedValue+"'";
+            }
+            strOrder = "RegDate DESC";
+            dtResult = BusinessRulesLocator.GettblDownloadItemBO().GetAsDataTable(strWhere, strOrder);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetDataTableUser");
+        }
+        return dtResult;
+    }
+
+    protected void grvUser_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        try
+        {
+            int _id = int.Parse(grvUser.DataKeys[e.NewEditIndex].Value.ToString());
+            Response.Redirect("Document_E.aspx?mode=edit&DocumentID=" + _id.ToString(), false);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_RowEditing");
+        }
+    }
+
+    protected void grvUser_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            lblMessage.Text = string.Empty;
+            grvUser.PageIndex = e.NewPageIndex;
+            FillGridView();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_PageIndexChanging");
+        }
+    }
+
+    protected void grvUser_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        try
+        {
+            int _id = int.Parse(grvUser.DataKeys[e.RowIndex].Value.ToString());
+            tblDownloadItemRow _tblUserRow = BusinessRulesLocator.GettblDownloadItemBO().GetByPrimaryKey(_id);
+            if (_tblUserRow != null)
+            {
+                _tblUserRow.Status = -1;
+                if (BusinessRulesLocator.GettblDownloadItemBO().Update(_tblUserRow))
+                    lblMessage.Text = "You are deleted a Row successfully!";
+                else
+                    lblMessage.Text = "You are deleted a Row failed!";
+
+                FillGridView();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_RowDeleting");
+            lblMessage.Text = "You can not delete this record!";
+        }
+    }
+
+    protected void grvUser_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblStatus = (Label)(e.Row.FindControl("lblStatus"));
+                CheckBox chkStatus = (CheckBox)(e.Row.FindControl("chkStatus"));
+
+                if (lblStatus == null || chkStatus == null)
+                    return;
+
+                if (lblStatus.Text.Trim().Equals("1"))
+                    chkStatus.Checked = true;
+                else if (lblStatus.Text.Trim().Equals("0"))
+                    chkStatus.Checked = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_RowDataBound");
+        }
+    }
+    public string GetCate(string ID) {
+
+        string name = "";
+        if (ID=="1")
+        {
+            name = "Presentation";
+        }
+        else if (ID=="2")
+        {
+            name = "Transportation";
+        }
+        else if (ID == "3")
+        {
+            name = "Photo";
+        }
+        else if (ID == "4")
+        {
+            name = "Our brochure";
+        }
+
+        return name;
+    }
+
+
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Document_E.aspx?mode=add");
+    }
+
+    protected void chkStatus_OnCheckedChanged(object sender, System.EventArgs e)
+    {
+        try
+        {
+            CheckBox chkStatus = (CheckBox)sender;
+            GridViewRow row = (GridViewRow)chkStatus.NamingContainer;
+            Label lblID = (Label)row.FindControl("lblID");
+
+            if (!string.IsNullOrEmpty(lblID.Text.Trim()))
+            {
+                int _Id = 0;
+                int.TryParse(lblID.Text.Trim(), out _Id);
+                tblDownloadItemRow _tblPagesRow = GetInfomemberById(_Id);
+                if (_tblPagesRow != null)
+                {
+                    if (chkStatus.Checked)
+                        _tblPagesRow.Status = 1;
+                    else
+                        _tblPagesRow.Status = 0;
+                    if (BusinessRulesLocator.GettblDownloadItemBO().Update(_tblPagesRow))
+                    {
+                        lblMessage.Text = "You have successfully updated!";
+                        lblMessage.ForeColor = Color.Green;
+                        FillGridView();
+                    }
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "chkStatus_OnCheckedChanged");
+        }
+    }
+    protected tblDownloadItemRow GetInfomemberById(int _Id)
+    {
+        tblDownloadItemRow _tblContactRow = new tblDownloadItemRow();
+        try
+        {
+            _tblContactRow = BusinessRulesLocator.GettblDownloadItemBO().GetByPrimaryKey(_Id);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetInfoContactById");
+        }
+        return _tblContactRow;
+    }
+
+
+    protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FillGridView();
+    }
+
+    protected void ddlLang_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FillGridView();
+    }
+}

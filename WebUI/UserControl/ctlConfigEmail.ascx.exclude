@@ -1,0 +1,70 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctlConfigEmail.ascx.cs"
+    Inherits="usercontrol_ctlConfigEmail" %>
+<div class="box2">
+    <fieldset>
+        <legend>Email information</legend>
+        <label>
+        </label>
+        <asp:Label ID="lblMessage" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label>
+        <br />
+        <label>
+            <font color="red">*</font>Email send</label>
+        <asp:TextBox ID="txtEmailAddress" runat="server" Width="220px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="reqEmailAddress" runat="server" SetFocusOnError="True"
+            Display="Dynamic" ControlToValidate="txtEmailAddress" ValidationGroup="email"
+            ErrorMessage="*"></asp:RequiredFieldValidator>
+        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" Display="Dynamic"
+            ControlToValidate="txtEmailAddress" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+            ErrorMessage="*" SetFocusOnError="True" ValidationGroup="email"></asp:RegularExpressionValidator>
+        <br />
+        <label>
+            <font color="red">*</font>Password</label>
+        <asp:TextBox ID="txtPassword" runat="server" Width="280px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="reqPassword" runat="server" SetFocusOnError="True"
+            Display="Dynamic" ControlToValidate="txtPassword" ValidationGroup="email" ErrorMessage="*"></asp:RequiredFieldValidator>
+        <br />
+        <label>
+            <font color="red">*</font>SMTP Server</label>
+        <asp:TextBox ID="txtSMTPServer" runat="server" Width="280px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="reqSMTPServer" runat="server" SetFocusOnError="True"
+            Display="Dynamic" ControlToValidate="txtSMTPServer" ValidationGroup="email" ErrorMessage="*"></asp:RequiredFieldValidator>
+        <br />
+        <label>
+            <font color="red">*</font>SMTP Port</label>
+        <asp:TextBox ID="txtSMTPPort" runat="server" Width="100px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="reqSMTPPort" runat="server" SetFocusOnError="True"
+            Display="Dynamic" ControlToValidate="txtSMTPPort" ValidationGroup="email" ErrorMessage="*"></asp:RequiredFieldValidator>
+        <br />
+        <label>
+            <font color="red">*</font>Mail Server</label>
+        <asp:TextBox ID="txtMailServer" runat="server" Width="280px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="reqMailServer" runat="server" SetFocusOnError="True"
+            Display="Dynamic" ControlToValidate="txtMailServer" ValidationGroup="email" ErrorMessage="*"></asp:RequiredFieldValidator>
+        <br />
+        <label>
+            <font color="red">*</font>Server Port</label>
+        <asp:TextBox ID="txtServerPort" runat="server" Width="100px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="reqServerPort" runat="server" SetFocusOnError="True"
+            Display="Dynamic" ControlToValidate="txtServerPort" ValidationGroup="email" ErrorMessage="*"></asp:RequiredFieldValidator>
+        <br />
+
+        <label>
+            Use SSL</label>
+        <asp:CheckBox ID="chkSSL" runat="server"></asp:CheckBox>
+        <br />
+        <label>
+            <font color="red">*</font>Email receive</label>
+        <asp:TextBox ID="txtEmailReceive" runat="server" Width="220px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" SetFocusOnError="True"
+            Display="Dynamic" ControlToValidate="txtEmailReceive" ValidationGroup="email"
+            ErrorMessage="*"></asp:RequiredFieldValidator>
+        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" Display="Dynamic"
+            ControlToValidate="txtEmailAddress" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+            ErrorMessage="*" SetFocusOnError="True" ValidationGroup="email"></asp:RegularExpressionValidator>
+        <br />
+        <asp:Button ID="btnSave" runat="server" Text="Save" ValidationGroup="email" CssClass="button"
+            Width="80px" OnClick="btnSave_Click" />
+        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CausesValidation="False" CssClass="button"
+            Width="80px" OnClick="btnCancel_Click" />
+    </fieldset>
+</div>

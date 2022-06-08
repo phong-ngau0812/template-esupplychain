@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SystemFrameWork</name>
+    </assembly>
+    <members>
+        <member name="T:SystemFrameWork.CommonBO">
+            <summary>
+            Đây là class xây dựng các phương thức dùng chung trong hệ thống
+            </summary>
+        </member>
+        <member name="T:SystemConfig">
+            <summary>
+            The base class for the <see cref="!:asiaticadb"/> class that 
+            represents a connection to the <c>asiaticadb</c> database. 
+            </summary>
+            <remarks>
+            Do not change this source code. Modify the AsiaWondersDB class
+            if you need to add or change some functionality.
+            </remarks>
+        </member>
+    </members>
+</doc>

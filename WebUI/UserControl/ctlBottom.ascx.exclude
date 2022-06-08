@@ -1,0 +1,52 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctlBottom.ascx.cs" Inherits="UserControl_ctlBottom" %>
+   <!--==============================
+            =            Bot Foot            =
+            ===============================-->
+            <section class="bot-page">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 ">
+                            <figure class="effect-thoong">
+                                <div class="figure-img">
+                                    <img alt="#" src="/uploads/7.jpg" class="img-responsive">
+                                </div>
+                                <figcaption>
+                                    <div class="transtop">
+                                        <h3><b>Travel Tips Download</b></h3>
+                                    </div>
+                                </figcaption>
+                                <a href="/download/vietnamstay-download"></a>
+                            </figure>
+                        </div>
+                        <div class="col-md-4  delay-05s">
+                            <figure class="effect-thoong">
+                                <div class="figure-img">
+                                    <img alt="#" src="/uploads/7a.jpg" class="img-responsive">
+                                </div>
+                                <figcaption>
+                                    <div class="transtop">
+                                        <h3><b>Watch Our Video Tour</b> <i class="far fa-play-circle"></i></h3>
+                                    </div>
+                                </figcaption>
+                                <a href="https://www.youtube.com/channel/UCLFPgw9OEH7AcesurNknl3w" target="_blank"></a>
+                            </figure>
+                        </div>
+                        <div class="col-md-4  delay-1s">
+                            <figure class="effect-thoong">
+                                <div class="figure-img">
+                                    <img alt="#" src="/uploads/7b.jpg" class="img-responsive">
+                                </div>
+                                <figcaption>
+                                    <div class="transtop">
+                                        <h3><b>Testimonials</b></h3>
+                                    </div>
+                                </figcaption>
+                                <a href="/testimonials"></a>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </section>
+			
+
+            <!--====  End of Bot Foot  ====-->

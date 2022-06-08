@@ -1,0 +1,57 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctlUser_E.ascx.cs" Inherits="user_ctlUser_E" %>
+<%@ Register Src="../usercontrol/UploadImage.ascx" TagName="UploadImage" TagPrefix="uc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+<div id="box">
+    <h3><asp:Label ID="lblTitle" runat="server" Text="Add New"></asp:Label></h3>
+    
+    <div class="box2">
+        <fieldset>
+            <legend>User Information</legend>
+            <label></label>
+            <asp:Label ID="lblMessage" runat="server" Text="" Font-Bold="true" ForeColor="Red"></asp:Label>
+            <br />
+            
+            <label><font color="red">*</font> User Name</label>
+            <asp:TextBox ID="txtUserName" runat="server" Text="" Width="220px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="reqUserName" runat="server" SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtUserName" ErrorMessage="*"></asp:RequiredFieldValidator>
+            <br />
+            <label><font color="red">*</font> Password</label>
+            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" Text="" Width="180px"></asp:TextBox>
+            <asp:Label ID="lblPassword" runat="server" Text="********" Visible="false"></asp:Label>
+            <asp:RequiredFieldValidator ID="reqPassword" runat="server" SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtPassword" ErrorMessage="*"></asp:RequiredFieldValidator>
+            <br />
+            <label><font color="red">*</font> Confirm Password</label>
+            <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" Text="" Width="180px"></asp:TextBox>
+            <asp:Label ID="lblConfirmPassword" runat="server" Text="********" Visible="false"></asp:Label>
+            <asp:RequiredFieldValidator ID="reqConfirmPassword" runat="server" SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtConfirmPassword" ErrorMessage="*"></asp:RequiredFieldValidator>
+            <br />
+            <label><font color="red">*</font> Full Name</label>
+            <asp:TextBox ID="txtFullName" runat="server" Text="" Width="220px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="reqFullName" runat="server" SetFocusOnError="true" Display="Dynamic" ControlToValidate="txtFullName" ErrorMessage="*"></asp:RequiredFieldValidator>
+            <br />
+            <label>Gender</label>
+            <asp:RadioButton ID="rdoMale" runat="server" Checked="true" GroupName="gender" /> Male
+            <asp:RadioButton ID="rdoFeMale" runat="server" GroupName="gender" /> Female
+            <br />
+           
+          
+            <label><font color="red">*</font> Email</label>
+            <asp:TextBox ID="txtEmail" runat="server" Text="" Width="220px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="reqEmail" runat="server" SetFocusOnError="true" ControlToValidate="txtEmail" ErrorMessage="*"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="rgvEmail" runat="server" Display="Dynamic" ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ErrorMessage="*" SetFocusOnError="true"></asp:RegularExpressionValidator>
+            <br />
+           
+            <label>Active/Lock</label>
+            <asp:RadioButton ID="rdoActive" runat="server" Checked="true" GroupName="status" /> Active
+            <asp:RadioButton ID="rdoLock" runat="server" GroupName="status" /> Lock
+            <br />
+            <label></label>
+            <asp:Button ID="btnSave" runat="server" Text=" Save " CssClass="button" CausesValidation="true" onclick="btnSave_Click" />
+            <asp:Button ID="btnCancel" runat="server" Text=" Cancel " CssClass="button" CausesValidation="false" onclick="btnCancel_Click" />
+        </fieldset>
+    </div>
+    
+</div>
+        

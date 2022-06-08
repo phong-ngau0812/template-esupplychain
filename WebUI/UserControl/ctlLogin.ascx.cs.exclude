@@ -1,0 +1,168 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using DbObj;
+using SystemFrameWork;
+
+public partial class admin_usercontrol_ctlLogin : System.Web.UI.UserControl
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (!IsPostBack)
+        {
+            ClearForm();
+        }
+    }
+
+    //protected void FillDDLLanguage()
+    //{
+    //    DataTable dtResult = new DataTable();
+    //    string strWhere = string.Empty;
+    //    string strOrder = string.Empty;
+    //    try
+    //    {
+    //        strOrder += "OrderBy ASC";
+    //        dtResult = BusinessRulesLocator.GettblWebLanguageBO().GetAsDataTable(strWhere, strOrder);
+    //        if (dtResult != null)
+    //        {
+    //            if (dtResult.Rows.Count > 0)
+    //            {
+
+    //                foreach (DataRow row in dtResult.Rows)
+    //                {
+    //                    ListItem item = new ListItem();
+    //                    item.Text = row["LanguageName"].ToString();
+    //                    item.Value = row["Lang"].ToString();
+    //                    ddlLanguage.Items.Add(item);
+    //                }
+    //            }
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Log.writeLog(ex.ToString(), "FillDDLLanguage");
+    //    }
+    //}
+
+    protected void ClearForm()
+    {
+        txtUserName.Text = string.Empty;
+        txtPassword.Text = string.Empty;
+        //ddlLanguage.SelectedIndex = -1;
+        txtUserName.Focus();
+    }
+
+    protected void btnReset_Click(object sender, EventArgs e)
+    {
+        ClearForm();
+    }
+
+
+    protected void btnLogIn_Click(object sender, EventArgs e)
+    {
+        DataTable dtResult = new DataTable();
+        string strWhere = string.Empty;
+        string strOrder = string.Empty;
+        
+       
+        try
+        {
+            //string _IP = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"].ToString();
+            //if (!string.IsNullOrEmpty(_IP))
+            //{
+            //    for (int i = 0; i <= 250; i++)
+            //    {
+            //        if (_IP == ("10.0.0." + i.ToString()))
+            //        {
+            //            _IP = "118.70.124.76";
+            //            break;
+            //        }
+            //        else if (_IP == "127.0.0.1")
+            //        {
+            //            _IP = "117.6.134.162";
+            //            break;
+            //        }
+            //        else if (_IP == ("192.168.1." + i.ToString()))
+            //        {
+            //            _IP = "118.70.124.76";
+            //            break;
+            //        }
+            //    }
+                //if (_IP.Trim() == "117.6.134.162" || _IP.Trim() == "118.70.124.76" || _IP.Trim() == "113.176.61.39")
+                //{
+                    strWhere += " [Status] = 1 AND [UserName] = '" + txtUserName.Text.Trim().Replace("'", "").Replace("\"", "") + "'";
+                    dtResult = BusinessRulesLocator.GettblUserBO().GetAsDataTable(strWhere, strOrder);
+                    if (dtResult != null)
+                    {
+                        if (dtResult.Rows.Count <= 0)
+                        {
+                            lblMessage.Text = "The UserName is invalid!";
+                            txtUserName.Focus();
+                        }
+                        else
+                        {
+                            strWhere = "[Status] = 1 AND [UserName] = '" + txtUserName.Text.Trim().Replace("'", "").Replace("\"", "") + "' AND [Password] = '" + Common.MD5Decrypt(txtPassword.Text.Trim()) + "'";
+                            dtResult = BusinessRulesLocator.GettblUserBO().GetAsDataTable(strWhere, strOrder);
+                            if (dtResult != null)
+                            {
+                                if (dtResult.Rows.Count > 0)
+                                {
+                                    tblUserRow _tblUserRow = GetInfoUserById(int.Parse(dtResult.Rows[0]["ID"].ToString()));
+                                    if (_tblUserRow != null)
+                                    {
+                                        Common.SetUserIDToSession(int.Parse(dtResult.Rows[0]["ID"].ToString()));
+                                        Response.Redirect("Default.aspx", false);
+                                    }
+                                }
+                                else
+                                {
+                                    lblMessage.Text = "The Password is invalid!";
+                                    txtPassword.Focus();
+                                }
+                            }
+                            else
+                            {
+                                lblMessage.Text = "The Password is invalid!";
+                                txtPassword.Focus();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        lblMessage.Text = "The UserName is invalid!";
+                        txtUserName.Focus();
+                    }
+                //}
+                //else
+                //{
+                //    lblMessage.Text = "You can not login to the system!";
+                //    return;
+                //}
+            //}
+            
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "btnLogIn_Click");
+        }
+    }
+
+    protected tblUserRow GetInfoUserById(int id)
+    {
+        tblUserRow _tblUserRow = new tblUserRow();
+        try
+        {
+            _tblUserRow = BusinessRulesLocator.GettblUserBO().GetByPrimaryKey(id);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetInfoUserById");
+        }
+        return _tblUserRow;
+    }
+}

@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using SystemFrameWork;
+
+public partial class UserControl_ctlIntro : System.Web.UI.UserControl
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        LoadIntroHome();
+    }
+    protected void LoadIntroHome()
+    {
+        try
+        {
+            DataTable dt = new DataTable();
+            dt = BusinessRulesLocator.GettblCommonBO().GetAsDataTable(" Status=1 and Position='introhome'", "");
+            if (dt.Rows.Count == 1)
+            {
+                lblIntroHome.Text = dt.Rows[0]["Content"].ToString();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "LoadIntroHome");
+        }
+    }
+}

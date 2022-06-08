@@ -1,0 +1,183 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctlCompany.ascx.cs" Inherits="usercontrol_ctlCompany" %>
+<%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
+<div class="box2">
+    <fieldset>
+        <legend>Company information</legend>
+        <label style="width: 220px">
+        </label>
+        <asp:Label ID="lblMessage" runat="server" Font-Bold="True" ForeColor="Green"></asp:Label>
+        <br />
+        <label style="width: 220px">
+            <font color="red">*</font>Company Name</label>
+        <asp:TextBox ID="txtCompany" runat="server" Width="400px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="reqCompany" runat="server" SetFocusOnError="True"
+            Display="Dynamic" ControlToValidate="txtCompany" ErrorMessage="*"></asp:RequiredFieldValidator>
+        <br />
+        <label style="width: 220px">Facebook</label>
+        <asp:TextBox ID="txtFacebook" runat="server" Text="" Width="400px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">Google</label>
+        <asp:TextBox ID="txtGoogle" runat="server" Text="" Width="400px"></asp:TextBox>
+        <br />
+        <%--<label style="width: 220px">Twitter</label>
+        <asp:TextBox ID="txtTwitter" runat="server" Text="" Width="400px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">Instagram</label>
+        <asp:TextBox ID="txtInstagram" runat="server" Text="" Width="400px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">Pinterest</label>
+        <asp:TextBox ID="txtPinterest" runat="server" Text="" Width="400px"></asp:TextBox>
+        <br />--%>
+        <label style="width: 220px">Youtube</label>
+        <asp:TextBox ID="txtYoutube" runat="server" Text="" Width="400px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">Trip</label>
+        <asp:TextBox ID="txtTrip" runat="server" Text="" Width="400px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">Video youtube</label>
+        <asp:TextBox ID="txtStefan" runat="server" Text="" Width="400px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Title Home</label>
+        <asp:TextBox ID="txtTitle" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Keyword Home</label>
+        <asp:TextBox ID="txtKeyword" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Description Home</label>
+        <asp:TextBox ID="txtDescription" TextMode="MultiLine" runat="server" Width="700px"
+            Height="40px" Style="margin-bottom: 5px"></asp:TextBox>
+        
+         <br />
+        <label style="width: 220px">Intro top</label>
+        <FCKeditorV2:FCKeditor SkinPath="skins/silver/" ID="txtTop" runat="server" Height="400px" Width="700px"
+            BasePath="~/fckeditor/">
+        </FCKeditorV2:FCKeditor><br />
+        <label style="width: 220px">Intro footer</label>
+        <asp:TextBox ID="txtFooter" runat="server" Text="" Width="400px"></asp:TextBox>
+        <br />
+
+        <br />
+         <label style="width: 220px">
+            Intro home</label>
+        <FCKeditorV2:FCKeditor SkinPath="skins/silver/" ID="txtIntro" runat="server" Height="400px" Width="700px"
+            BasePath="~/fckeditor/">
+        </FCKeditorV2:FCKeditor><br />
+        <%--<br />
+        <label style="width: 220px">
+            Seo Title Tour</label>
+        <asp:TextBox ID="txtTitleTour" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Keyword Tour</label>
+        <asp:TextBox ID="txtKeyTour" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Description Tour</label>
+        <asp:TextBox ID="txtDesTour" TextMode="MultiLine" runat="server" Width="700px"
+            Height="40px" Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Title About</label>
+        <asp:TextBox ID="txtTitleAbout" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Keyword About</label>
+        <asp:TextBox ID="txtKeyAbout" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Description About</label>
+        <asp:TextBox ID="txtDesAbout" TextMode="MultiLine" runat="server" Width="700px"
+            Height="40px" Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Title Testimonial</label>
+        <asp:TextBox ID="txtTitleTestimonial" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Keyword Testimonial</label>
+        <asp:TextBox ID="txtKeyTestimonial" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Description Testimonial</label>
+        <asp:TextBox ID="txtDesTestimonial" TextMode="MultiLine" runat="server" Width="700px"
+            Height="40px" Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Title Press</label>
+        <asp:TextBox ID="txtTitlePress" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Keyword Press</label>
+        <asp:TextBox ID="txtKeyPress" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Description Press</label>
+        <asp:TextBox ID="txtDesPress" TextMode="MultiLine" runat="server" Width="700px"
+            Height="40px" Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Title News</label>
+        <asp:TextBox ID="txtTitleNews" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Keyword News</label>
+        <asp:TextBox ID="txtKeyNews" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Description News</label>
+        <asp:TextBox ID="txtDesNews" TextMode="MultiLine" runat="server" Width="700px"
+            Height="40px" Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Title Contact</label>
+        <asp:TextBox ID="txtTitleContact" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Keyword Contact</label>
+        <asp:TextBox ID="txtKeyContact" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Description Contact</label>
+        <asp:TextBox ID="txtDesContact" TextMode="MultiLine" runat="server" Width="700px"
+            Height="40px" Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Title Booking</label>
+        <asp:TextBox ID="txtTitleBook" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Keyword Booking</label>
+        <asp:TextBox ID="txtKeyBook" TextMode="MultiLine" runat="server" Width="700px" Height="40px"
+            Style="margin-bottom: 5px"></asp:TextBox>
+        <br />
+        <label style="width: 220px">
+            Seo Description Booking</label>
+        <asp:TextBox ID="txtDesBook" TextMode="MultiLine" runat="server" Width="700px"
+            Height="40px" Style="margin-bottom: 5px"></asp:TextBox>
+        <br />--%>
+        <label style="width: 220px">
+        </label>
+        <asp:Button ID="btnSave" runat="server" Width="80px" CssClass="button"
+            Text="Save" OnClick="btnSave_Click" />
+        <asp:Button ID="btnCancel" runat="server" Width="80px" CssClass="button" CausesValidation="false"
+            Text="Cancel" OnClick="btnCancel_Click" />
+    </fieldset>
+</div>

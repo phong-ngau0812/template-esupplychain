@@ -1,0 +1,14 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctlHeader.ascx.cs" Inherits="UserControl_ctlHeader" %>
+<meta name="AUTHOR" content="Vietnamstay" />
+<meta name="COPYRIGHT" content="Copyright (c) 2015 by Vietnamstay" />
+<link rel="Shortcut Icon" href="/images/vietnamstay.ico" type="image/x-icon">
+<link rel="manifest" href="/favicons/manifest.json">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="stylesheet" type="text/css" href="/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/animate-custom.css" />
+<link rel="stylesheet" type="text/css" href="/css/iziToast.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/js/iziToast.js"></script>

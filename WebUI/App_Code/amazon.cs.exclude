@@ -1,0 +1,603 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI.WebControls;
+using System.Web.SessionState;
+using System.Text.RegularExpressions;
+using System.Data;
+using System.Security.Cryptography;
+using System.Text;
+using DbObj;
+using System.IO;
+using System.Drawing;
+using System.Reflection;
+using SystemFrameWork;
+using System.Net.Mail;
+using System.Net;
+using EvoPdf.HtmlToPdf;
+using Geotargeting;
+using System.Resources;
+using System.Globalization;
+using System.Threading;
+
+/// <summary>
+/// Summary description for amazon
+/// </summary>
+public class amazon
+{
+	public amazon()
+	{
+		//
+		// TODO: Add constructor logic here
+		//
+	}
+
+    public static bool SendMailContactPaxToPax(string strTo, string strDisplayName, string strSubject, string strBody, tblConfigRow _tblConfigRow)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+
+            // Set the From address of the mail message
+            _mailMessage.From = new MailAddress(_tblConfigRow.EmailAddress, _tblConfigRow.DisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            //_mailMessage.CC.Add(new MailAddress(strCc, strDisplayName));
+
+            if (!string.IsNullOrEmpty(strTo))
+            {
+                string[] MailTo = strTo.Split(';');
+                foreach (string emailaddress in MailTo)
+                {
+                    // Add MailTo to MailAddress
+                    _mailMessage.To.Add(new MailAddress(emailaddress.Trim(), strDisplayName));
+                    // Insert MailTo to DB
+                }
+            }
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+
+    public static bool SendMailContactToPax(string strTo, string strDisplayName, string strSubject, string strBody, tblConfigRow _tblConfigRow)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+
+            // Set the From address of the mail message
+            _mailMessage.From = new MailAddress(_tblConfigRow.EmailAddress, _tblConfigRow.DisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            if (!string.IsNullOrEmpty(strTo))
+            {
+                string[] MailTo = strTo.Split(';');
+                foreach (string emailaddress in MailTo)
+                {
+                    // Add MailTo to MailAddress
+                    _mailMessage.To.Add(new MailAddress(emailaddress.Trim(), strDisplayName));
+                    // Insert MailTo to DB
+                }
+            }
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+
+    public static bool SendMailContactToInfo(string strDisplayName, string strSubject, string strBody, tblConfigRow _tblConfigRow)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+
+            // Set the From address of the mail message
+            _mailMessage.From = new MailAddress(_tblConfigRow.EmailAddress, strDisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+
+            // Add MailTo to MailAddress
+            _mailMessage.To.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+
+    public static bool SendMailBrochureToInfo(string strDisplayName, string strSubject, string strBody, tblConfigRow _tblConfigRow)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+
+            // Set the From address of the mail message
+            _mailMessage.From = new MailAddress(_tblConfigRow.EmailAddress, strDisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            _mailMessage.CC.Add(new MailAddress("deutschland@asiatica.com", strDisplayName));
+            // Add MailTo to MailAddress
+            _mailMessage.To.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+
+    public static bool SendMailToPax(string strTo, string strDisplayName, string strSubject, string strBody, tblConfigRow _tblConfigRow)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+
+            _mailMessage.From = new MailAddress(_tblConfigRow.EmailAddress, _tblConfigRow.DisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            if (!string.IsNullOrEmpty(strTo))
+            {
+                string[] MailTo = strTo.Split(';');
+                foreach (string emailaddress in MailTo)
+                {
+                    // Add MailTo to MailAddress
+                    _mailMessage.To.Add(new MailAddress(emailaddress.Trim(), strDisplayName));
+                    // Insert MailTo to DB
+                }
+            }
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+
+    public static bool SendMailPaxToSaleInfo(string strSales, string strDisplayNameSale, string strDisplayName, string strSubject, string strBody, tblConfigRow _tblConfigRow)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+
+            // Set the From address of the mail message
+            _mailMessage.From = new MailAddress(_tblConfigRow.EmailAddress, strDisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            _mailMessage.CC.Add(new MailAddress(strSales, strDisplayNameSale));
+            // Add MailTo to MailAddress
+            _mailMessage.To.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+
+    public static bool SendMailToInfo(string strDisplayName, string strSubject, string strBody, tblConfigRow _tblConfigRow)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+
+            _mailMessage.From = new MailAddress(_tblConfigRow.EmailAddress, strDisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            // Add MailTo to MailAddress
+            _mailMessage.To.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+
+    public static bool SendMailToPaxOfPress(string strTo, string strDisplayName, string strSubject, string strBody, tblConfigRow _tblConfigRow, string strDisplayFrom, string Cc, string pass)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+
+            _mailMessage.From = new MailAddress(Cc, strDisplayFrom);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            if (!string.IsNullOrEmpty(strTo))
+            {
+                string[] MailTo = strTo.Split(';');
+                foreach (string emailaddress in MailTo)
+                {
+                    // Add MailTo to MailAddress
+                    _mailMessage.To.Add(new MailAddress(emailaddress.Trim(), strDisplayName));
+                    // Insert MailTo to DB
+                }
+            }
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMailToPaxOfPress");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMailToPaxOfPress");
+            return false;
+        }
+    }
+
+    public static bool SendMailToInfoOfPress(string strDisplayName, string strSubject, string strBody, tblConfigRow _tblConfigRow, string Cc, string pass)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+
+            _mailMessage.From = new MailAddress(Cc, strDisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            // Add MailTo to MailAddress
+            _mailMessage.To.Add(new MailAddress(Cc, strDisplayName));
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+
+    public static bool SendMailContestToPax(string strTo, string strDisplayName, string strSubject, string strBody, string email, string pass, tblConfigRow _tblConfigRow)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+            // Set the From address of the mail message
+            _mailMessage.From = new MailAddress(email, _tblConfigRow.DisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            if (!string.IsNullOrEmpty(strTo))
+            {
+                string[] MailTo = strTo.Split(';');
+                foreach (string emailaddress in MailTo)
+                {
+                    // Add MailTo to MailAddress
+                    _mailMessage.To.Add(new MailAddress(emailaddress.Trim(), strDisplayName));
+                    // Insert MailTo to DB
+                }
+            }
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+
+    public static bool SendMailContestToInfo(string strDisplayName, string strSubject, string strBody, string email, string pass, tblConfigRow _tblConfigRow)
+    {
+        bool IsBool = false;
+        try
+        {
+            MailMessage _mailMessage = new MailMessage();
+            _mailMessage.IsBodyHtml = true;
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+            _mailMessage.Body = HttpContext.Current.Server.HtmlDecode(strBody);
+            _mailMessage.Subject = strSubject;
+            _mailMessage.Priority = MailPriority.Normal;
+            // Set the From address of the mail message
+            _mailMessage.From = new MailAddress(email, strDisplayName);
+            // Set the Bcc address of the mail message
+            //_mailMessage.Bcc.Add(new MailAddress(_tblConfigRow.EmailAddress, strDisplayName));
+            // Set the Cc address of the mail message
+            // Add MailTo to MailAddress
+            _mailMessage.To.Add(new MailAddress(email, strDisplayName));
+
+            try
+            {
+                String username = "AKIAIUMI7R3YVT5G264Q";  // Replace with your SMTP username.
+                String password = "Ath4B+zslPXkHXhIqP9R2Sd8Ys/5Rjs8XZdWZMB5xzNa";  // Replace with your SMTP password.
+                String host = "email-smtp.us-east-1.amazonaws.com";
+                int port = 25;
+                var client = new SmtpClient(host, port);
+                client.Credentials = new System.Net.NetworkCredential(username, password);
+                client.EnableSsl = true;
+                
+                client.Send(_mailMessage);
+                IsBool = true;
+            }
+            catch (Exception ex)
+            {
+                Log.writeLog(ex.ToString(), "SendMail");
+                IsBool = false;
+            }
+            return IsBool;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "SendMail");
+            return false;
+        }
+    }
+}

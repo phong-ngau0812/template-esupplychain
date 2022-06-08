@@ -1,0 +1,218 @@
+﻿using DbObj;
+using evointernal;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using SystemFrameWork;
+
+public partial class WarehouseImportProduct_Add : System.Web.UI.Page
+{
+    public string title = "Thêm mới sản phẩm vào kho ";
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        CKFinder.FileBrowser _FileBrowser = new CKFinder.FileBrowser();
+        _FileBrowser.BasePath = "/ckfinder";
+        _FileBrowser.SetupCKEditor(txtNote);
+
+        if (!IsPostBack)
+        {
+            FillDDLddlProductBrand();
+            FillDDLddlWarehouse();
+            FillDDLddlProduct();
+        }
+        lblMessage.Text = "";
+        lblMessage.Visible = false;
+    }
+
+
+
+    private void FillDDLddlProductBrand()
+    {
+        try
+        {
+            DataTable dt = new DataTable();
+            dt = BusinessRulesLocator.GetProductBrandBO().GetAsDataTable(" Active<>-1", " Sort ASC");
+            ddlProductBrand.DataSource = dt;
+            ddlProductBrand.DataTextField = "Name";
+            ddlProductBrand.DataValueField = "ProductBrand_ID";
+            ddlProductBrand.DataBind();
+            ddlProductBrand.Items.Insert(0, new ListItem("-- Chọn doanh nghiệp --", ""));
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("FillDDLCha", ex.ToString());
+        }
+    }
+
+
+    private void FillDDLddlWarehouse()
+    {
+        try
+        {
+            string where = "";
+
+            if (ddlProductBrand.SelectedValue != "")
+            {
+                where += " and PB.ProductBrand_ID =" + ddlProductBrand.SelectedValue;
+
+            }
+            DataTable dt = new DataTable();
+            dt = BusinessRulesLocator.Conllection().GetAllList(@"select W.* from Warehouse W inner join ProductBrand PB on W.ProductBrand_ID = PB.ProductBrand_ID where PB.Active<>-1 and W.Active<>-1 " + where);
+            ddlWarehouse.DataSource = dt;
+            ddlWarehouse.DataTextField = "Name";
+            ddlWarehouse.DataValueField = "Warehouse_ID";
+            ddlWarehouse.DataBind();
+            ddlWarehouse.Items.Insert(0, new ListItem("-- Chọn kho --", ""));
+
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("FillDDLCha", ex.ToString());
+        }
+    }
+
+    private void FillDDLddlProduct()
+    {
+        try
+        {
+            string where = "";
+
+            if (ddlProductBrand.SelectedValue != "")
+            {
+                where += " and PB.ProductBrand_ID =" + ddlProductBrand.SelectedValue;
+
+            }
+            DataTable dt = new DataTable();
+            dt = BusinessRulesLocator.Conllection().GetAllList(@"select P.* from Product P 
+inner join ProductBrand PB on P.ProductBrand_ID = PB.ProductBrand_ID 
+where PB.Active<>-1  " + where);
+            ddlSanPham.DataSource = dt;
+            ddlSanPham.DataTextField = "Name";
+            ddlSanPham.DataValueField = "Product_ID";
+            ddlSanPham.DataBind();
+            ddlSanPham.Items.Insert(0, new ListItem("-- Chọn sản phẩm nhập kho --", ""));
+
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("FillDDLCha", ex.ToString());
+        }
+    }
+
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            AddWarehouseImportProduct();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("btnSave_Click", ex.ToString());
+        }
+    }
+
+    protected bool CheckStaffTypeName(string Code)
+    {
+        bool flag = true;
+        string where = "Active <>-1";
+        if (!string.IsNullOrEmpty(Code))
+        {
+            where += " and Name=N'" + Code.Trim() + "'";
+            DataTable dt = new DataTable();
+            dt = BusinessRulesLocator.GetV2_StaffTypeBO().GetAsDataTable(where, "");
+            if (dt.Rows.Count > 0)
+            {
+                flag = false;
+            }
+
+        }
+
+
+        return flag;
+    }
+    protected void AddWarehouseImportProduct()
+    {
+        try
+        {
+            //if (CheckStaffTypeName(txtCode.Text.Trim()))
+            //{
+
+            WarehouseImportRow _V2_WarehouseImportRow = new WarehouseImportRow();
+            _V2_WarehouseImportRow.ProductBrand_ID = Convert.ToInt32(ddlProductBrand.SelectedValue);
+            _V2_WarehouseImportRow.Warehouse_ID = Convert.ToInt32(ddlWarehouse.SelectedValue);
+            _V2_WarehouseImportRow.WarehouseImportType_ID = 1;
+            _V2_WarehouseImportRow.Material_ID = 0;
+            _V2_WarehouseImportRow.Product_ID = Convert.ToInt32(ddlSanPham.SelectedValue);
+            _V2_WarehouseImportRow.Name = string.IsNullOrEmpty(ddlSanPham.SelectedItem.Text) ? string.Empty : ddlSanPham.SelectedItem.Text.ToString();
+            _V2_WarehouseImportRow.Description = string.IsNullOrEmpty(txtNote.Text) ? string.Empty : txtNote.Text;
+            _V2_WarehouseImportRow.Importer = string.IsNullOrEmpty(txtImprot.Text) ? string.Empty : txtImprot.Text;
+            //_V2_WarehouseImportRow.Exporter = "";
+
+
+            if (!string.IsNullOrEmpty(txtAmount.Text))
+            {
+
+                _V2_WarehouseImportRow.Amount = Convert.ToDecimal(txtAmount.Text);
+            }
+            else
+            {
+                _V2_WarehouseImportRow.Amount = Convert.ToDecimal("0");
+            }
+            _V2_WarehouseImportRow.Active = 1;
+
+            _V2_WarehouseImportRow.CreateBy = MyUser.GetUser_ID();
+            _V2_WarehouseImportRow.CreateDate = DateTime.Now;
+
+            BusinessRulesLocator.GetWarehouseImportBO().Insert(_V2_WarehouseImportRow);
+            lblMessage.Text = "Thêm mới thành công!";
+            lblMessage.Visible = true;
+            ClearForm();
+
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "Đã tồn tại mã kho " + txtCode.Text.Trim();
+            //    lblMessage.ForeColor = Color.Red;
+            //    lblMessage.BackColor = Color.PaleTurquoise;
+            //    lblMessage.Visible = true;
+            //}
+
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("UpdateStaffType", ex.ToString());
+        }
+    }
+    protected void ClearForm()
+    {
+
+        ddlProductBrand.SelectedValue = "";
+        ddlWarehouse.SelectedValue = "";
+        ddlSanPham.SelectedValue = "";
+        txtNote.Text = "";
+        txtAmount.Text = " ";
+        txtImprot.Text = " ";
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("WarehouseImport_List.aspx", false);
+    }
+
+    protected void ddlProductBrand_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FillDDLddlWarehouse();
+        FillDDLddlProduct();
+
+    }
+
+}

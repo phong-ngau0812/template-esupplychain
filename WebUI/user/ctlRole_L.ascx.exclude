@@ -1,0 +1,84 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ctlRole_L.ascx.cs" Inherits="user_ctlRole_L" %>
+<%@ Register Assembly="WizardGridView" Namespace="WizardGridView" TagPrefix="cc1" %>
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+
+<div id="box">
+    <h3>
+        Security Role List</h3>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="50%" align="left" class="noneborder">
+                    <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="Red" Font-Bold="true"></asp:Label>
+                </td>
+                <td class="noneborder" align="right">
+                    <asp:Button ID="btnAdd" runat="server" CssClass="button" Text="Add New" Visible="false" OnClick="btnAdd_Click" />
+                </td>
+            </tr>
+        </table>
+        <cc1:WizardGridView ID="grvRole" runat="server" AllowPaging="false" AutoGenerateColumns="False" WizardCustomPager="True" 
+            DataKeyNames="ID" OnRowDeleting="grvRole_RowDeleting" OnRowEditing="grvRole_RowEditing">
+            <Columns>
+                <asp:TemplateField>
+                    <HeaderTemplate>
+                        <a href="javascript:void(0)">No</a>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblID" runat="server" Text='<%# Eval("ID") %>' Visible="false"></asp:Label>
+                        <%=No++ %>
+                    </ItemTemplate>
+                    <ItemStyle Wrap="True" Width="6%" HorizontalAlign="right" />
+                </asp:TemplateField>
+                <asp:TemplateField>
+                    <HeaderTemplate>
+                        <a href="javascript:void(0)">Role Name</a>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <a href='Role_E.aspx?mode=edit&RoleID=<%#Eval("ID") %>'>
+                            <asp:Label ID="lblRoleName" runat="server" Text='<%# Eval("RoleName") %>' />
+                        </a>
+                    </ItemTemplate>
+                    <ItemStyle Wrap="true" Width="74%" HorizontalAlign="left" />
+                </asp:TemplateField>
+                <asp:TemplateField>
+                    <HeaderTemplate>
+                        <a href="javascript:void(0)">Order By</a>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblOrderBy" runat="server" Text='<%# Eval("OrderBy") %>' />
+                    </ItemTemplate>
+                    <ItemStyle Wrap="true" Width="10%" HorizontalAlign="Center" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderStyle-HorizontalAlign="Center">
+                    <HeaderTemplate>
+                        <a href="javascript:void(0)">Edit</a>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <asp:LinkButton ID="btEdit" Width="25px" CommandName="Edit" CommandArgument='<%# Eval("ID") %>'
+                            CausesValidation="False" runat="server">
+                            <asp:Image ID="imgEdit" runat="server" ImageUrl="~/img/icons/edit.gif" Width="16px"
+                                Height="16px" ToolTip="Edit" />
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                    <ItemStyle Width="5%" HorizontalAlign="center" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" Visible="false">
+                    <HeaderTemplate>
+                        <a href="javascript:void(0)">Del</a>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <asp:LinkButton ID="btDelete" Width="25px" CommandName="Delete" CommandArgument='<%# Eval("ID") %>'
+                            CausesValidation="False" runat="server">
+                            <asp:Image ID="imgDelete" runat="server" ImageUrl="~/img/icons/delete.gif" Width="16px"
+                                Height="16px" ToolTip="Delete" />
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                    <ItemStyle Width="5%" HorizontalAlign="center" />
+                </asp:TemplateField>
+            </Columns>
+        </cc1:WizardGridView>
+    </ContentTemplate>
+    </asp:UpdatePanel>
+</div>

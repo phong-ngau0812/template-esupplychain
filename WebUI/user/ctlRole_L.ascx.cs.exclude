@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using SystemFrameWork;
+using DbObj;
+
+public partial class user_ctlRole_L : System.Web.UI.UserControl
+{
+    protected string lang = Systemconstants.Francais;
+    protected int No = 1;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        lblMessage.Text = string.Empty;
+        if (!string.IsNullOrEmpty(Request["lang"]))
+            lang = Request["lang"].ToString();
+
+        if (!IsPostBack)
+        {
+            FillGridView();
+        }
+    }
+
+    protected void FillGridView()
+    {
+        DataTable dtResult = new DataTable();
+        try
+        {
+            dtResult = GetDataTableRole();
+            if (dtResult != null)
+            {
+                if (dtResult.Rows.Count > 0)
+                {
+                    grvRole.DataSource = dtResult;
+                    grvRole.DataBind();
+                }
+                else
+                {
+                    Common.BuidNoRecord(dtResult, grvRole);
+                }
+            }
+            else
+            {
+                Common.BuidNoRecord(dtResult, grvRole);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillGridView");
+        }
+    }
+
+    protected DataTable GetDataTableRole()
+    {
+        DataTable dtResult = new DataTable();
+        string strWhere = string.Empty;
+        string strOrder = string.Empty;
+        try
+        {
+            strOrder = "OrderBy ASC";
+            dtResult = BusinessRulesLocator.GettblRoleBO().GetAsDataTable(strWhere, strOrder);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillGridView");
+        }
+        return dtResult;
+    }
+
+    protected void grvRole_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        try
+        {
+            decimal _id = decimal.Parse(grvRole.DataKeys[e.NewEditIndex].Value.ToString());
+            Response.Redirect("Role_E.aspx?mode=edit&RoleID=" + _id.ToString(), false);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvRole_RowEditing");
+        }
+    }
+
+    protected void grvRole_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        try
+        {
+            int _id = int.Parse(grvRole.DataKeys[e.RowIndex].Value.ToString());
+            if (BusinessRulesLocator.GettblRoleBO().DeleteByPrimaryKey(_id))
+                lblMessage.Text = "You are deleted a Row successfully!";
+            else
+                lblMessage.Text = "You are deleted a Row failed!";
+
+            FillGridView();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvRole_RowDeleting");
+        }
+    }
+    
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Role_E.aspx?mode=add");
+    }
+}

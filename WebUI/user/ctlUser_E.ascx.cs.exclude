@@ -1,0 +1,239 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.IO;
+using System.Collections;
+using SystemFrameWork;
+using DbObj;
+
+
+public partial class user_ctlUser_E : System.Web.UI.UserControl
+{
+
+    int UserID = 0;
+    string mode = string.Empty;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      
+        if (!string.IsNullOrEmpty(Request["mode"]))
+            mode = Request["mode"].ToString();
+
+        if (!string.IsNullOrEmpty(Request["UserID"]))
+            int.TryParse(Request["UserID"].ToString(), out UserID);
+
+        if (!IsPostBack)
+        {
+            Init();
+            if (mode.ToLower().Equals("edit") && UserID > 0)
+            {
+                FillInfoUser();
+            }
+        }
+    }
+
+    protected void Init()
+    {
+        if (mode.ToLower().Equals("add"))
+        {
+            lblTitle.Text = "Add New";
+            lblPassword.Visible = false;
+            lblConfirmPassword.Visible = false;
+            txtPassword.Visible = true;
+            txtConfirmPassword.Visible = true;
+        }
+        else if (mode.ToLower().Equals("edit"))
+        {
+            lblTitle.Text = "Edit";
+            lblPassword.Visible = true;
+            lblConfirmPassword.Visible = true;
+            txtPassword.Visible = false;
+            txtConfirmPassword.Visible = false;
+            reqPassword.Enabled = false;
+            reqConfirmPassword.Enabled = false;
+        }
+    }
+
+    
+    protected void FillInfoUser()
+    {
+        try
+        {
+            tblUserRow _tblUserRow = GetInfoUserById(UserID);
+            
+            if (_tblUserRow != null)
+            {
+                txtUserName.Text = _tblUserRow.IsUserNameNull ? string.Empty : _tblUserRow.UserName;
+                txtUserName.Enabled = false;
+                txtFullName.Text = _tblUserRow.IsFullNameNull ? string.Empty : _tblUserRow.FullName;
+                if (_tblUserRow.Gender)
+                {
+                    rdoMale.Checked = true;
+                    rdoFeMale.Checked = false;
+                }
+                else
+                {
+                    rdoMale.Checked = false;
+                    rdoFeMale.Checked = true;
+                }
+              
+                txtEmail.Text = _tblUserRow.IsEmailNull ? string.Empty : _tblUserRow.Email;
+               
+                
+                if (_tblUserRow.Status == 1)
+                {
+                    rdoActive.Checked = true;
+                    rdoLock.Checked = false;
+                }
+                else
+                {
+                    rdoActive.Checked = false;
+                    rdoLock.Checked = true;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("FillInfoUser", ex.ToString());
+        }
+    }
+
+    protected tblUserRow GetInfoUserById(int _Id)
+    {
+        tblUserRow _tblUserRow = new tblUserRow();
+        try
+        {
+            _tblUserRow = BusinessRulesLocator.GettblUserBO().GetByPrimaryKey(_Id);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("GetInfoUserById", ex.ToString());
+        }
+        return _tblUserRow;
+    }
+
+    protected tblUserRow GetInfoUser()
+    {
+        tblUserRow _tblUserRow = new tblUserRow();
+        try
+        {
+            if (mode.ToLower().Equals("edit"))
+                _tblUserRow = GetInfoUserById(UserID);
+            else
+            {
+                _tblUserRow.Password = Common.MD5Decrypt(txtPassword.Text.Trim());
+            }
+            _tblUserRow.UserName = txtUserName.Text.Trim().ToLower();
+            _tblUserRow.FullName = string.IsNullOrEmpty(txtFullName.Text.Trim()) ? string.Empty : txtFullName.Text.Trim();
+            _tblUserRow.Gender = rdoMale.Checked;
+        
+            _tblUserRow.Email = string.IsNullOrEmpty(txtEmail.Text.Trim()) ? string.Empty : txtEmail.Text.Trim();
+            
+            _tblUserRow.RegDate = DateTime.Now;
+            _tblUserRow.Status = rdoActive.Checked ? 1 : 0;
+            //Thong tin email config
+
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("GetInfoUser", ex.ToString());
+        }
+        return _tblUserRow;
+    }
+
+
+    protected void ClearForm()
+    {
+      
+        txtUserName.Text = string.Empty;
+        txtPassword.Text = string.Empty;
+        txtConfirmPassword.Text = string.Empty;
+        txtFullName.Text = string.Empty;
+        rdoMale.Checked = true;
+        rdoFeMale.Checked = false;
+      
+        txtEmail.Text = string.Empty;
+     
+        rdoActive.Checked = true;
+        rdoLock.Checked = false;
+    }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Response.Redirect("User_L.aspx", false);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("btnReset_Click", ex.ToString());
+        }
+    }
+
+    protected bool CheckExistUserName()
+    {
+        bool bValue = false;
+        try
+        {
+            string strWhere = "[Status] = 1 AND UserName = '" + txtUserName.Text.Trim() + "'";
+            string strOrder = string.Empty;
+            DataTable dtResult = BusinessRulesLocator.GettblUserBO().GetAsDataTable(strWhere, strOrder);
+            if (dtResult != null)
+                if (dtResult.Rows.Count > 0)
+                    bValue = true;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "CheckExistUserName");
+        }
+        return bValue;
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Page.IsValid)
+            {
+                
+                    tblUserRow _tblUserRow = GetInfoUser();
+                    if (_tblUserRow != null)
+                    {
+                        if (mode.ToLower().Equals("add"))
+                        {
+                            if (!CheckExistUserName())
+                            {
+                                BusinessRulesLocator.GettblUserBO().Insert(_tblUserRow);
+                                if (!_tblUserRow.IsIDNull)
+                                {
+                                    lblMessage.Text = "You have successfully inserted!";
+                                    ClearForm();
+                                }
+                            }
+                            else
+                            {
+                                lblMessage.Text = "The username is existing, Please enter another username!";
+                            }
+                        }
+                        else if (mode.ToLower().Equals("edit"))
+                        {
+                            if (BusinessRulesLocator.GettblUserBO().Update(_tblUserRow))
+                            {
+                                lblMessage.Text = "You have successfully updated!";
+                            }
+                        }
+                    }
+               
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("btnSave_Click", ex.ToString());
+        }
+    }
+
+
+}

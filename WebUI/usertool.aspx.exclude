@@ -1,0 +1,284 @@
+﻿<%@ Page Language="C#" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script runat="server">
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack)
+        {
+            BindRoles();
+            BindUser();
+            BindConnectionString();
+        }
+    }
+
+    protected void BindUser()
+    {
+        MembershipUserCollection users = Membership.GetAllUsers();
+        grdUser.DataSource = users;
+        grdUser.DataBind();
+
+        cboUser.DataSource = users;
+        cboUser.DataBind();
+    }
+    protected void BindRoles()
+    {
+        string[] rolesArray;
+        rolesArray = Roles.GetAllRoles();
+        grdRole.DataSource = rolesArray;
+        grdRole.DataBind();
+
+        chkRoles.DataSource = rolesArray;
+        chkRoles.DataBind();
+    }
+
+    private void BindRoleForUser(string UserName)
+    {
+        // Load the User Roles into checkboxes.
+        chkRoles.DataSource = Roles.GetAllRoles();
+        chkRoles.DataBind();
+
+        // Bind these checkboxes to the User's own set of roles.
+        string[] userRoles = Roles.GetRolesForUser(UserName);
+        foreach (string role in userRoles)
+        {
+            ListItem checkbox = chkRoles.Items.FindByValue(role);
+            checkbox.Selected = true;
+        }
+    }
+
+    protected void BindConnectionString()
+    {
+        ConnectionStringSettingsCollection ConnectionStringArray;
+        ConnectionStringArray = System.Configuration.ConfigurationManager.ConnectionStrings;
+                
+        grdConnectionstring.DataSource = ConnectionStringArray;
+        grdConnectionstring.DataBind();
+    }
+    
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        string UserName;
+        MembershipUser User;
+        try
+        {
+            UserName = cboUser.SelectedValue;
+            User = Membership.GetUser(UserName);
+
+            User.UnlockUser();
+            Membership.UpdateUser(User);
+
+            User.ChangePassword(User.ResetPassword(), txtPassword.Text);
+            Membership.UpdateUser(User);
+
+            //Update Roles
+            foreach (ListItem rolebox in chkRoles.Items)
+            {
+                if (rolebox.Selected)
+                {
+                    if (!Roles.IsUserInRole(UserName, rolebox.Text))
+                    {
+                        Roles.AddUserToRole(UserName, rolebox.Text);
+                    }
+                }
+                else
+                {
+                    if (Roles.IsUserInRole(UserName, rolebox.Text))
+                    {
+                        Roles.RemoveUserFromRole(UserName, rolebox.Text);
+                    }
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            ltrErr.Text = ex.ToString();
+        }
+    }
+
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        string UserName = cboUser.SelectedValue;
+        try
+        {
+            Membership.DeleteUser(UserName, true);
+            BindUser();
+        }
+        catch (Exception ex)
+        {
+            ltrErr.Text = ex.ToString();
+        }
+    }
+
+    protected void CreateUserWizard1_NextButtonClick(object sender, WizardNavigationEventArgs e)
+    {
+        BindUser();
+    }
+
+    protected void cboUser_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(cboUser.SelectedValue))
+        {
+            BindRoleForUser(cboUser.SelectedValue);
+        }
+    }
+</script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>User Manager</title>
+    <style type="text/css">
+        table td
+        {
+            padding: 5px;
+            border-color: #999999;
+        }
+        table th
+        {
+            padding: 5px;
+            border-color: #999999;
+            background-color: #5D7B9D;
+            color: #ffffff;
+            font-weight: bold;
+            border-color: #5D7B9D;
+        }
+        body
+        {
+            font-family: Arial;
+            font-size: 9pt;
+            color: #333333;
+        }
+        .table1
+        {
+            width: 320px;
+            border-collapse: collapse;
+        }
+        .tdleft
+        {
+            width: 100px;
+        }
+        .divleft
+        {
+            float: left;
+            padding-right: 10px;
+        }
+        .clear
+        {
+            clear: both;
+            display: block;
+            font-size: 0;
+            height: 0;
+        }
+        .err
+        {
+            font-family: Arial;
+            font-size: 9pt;
+            color: #FF0000;
+            text-align: left;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        
+        <h1>
+            Users</h1>
+        <asp:GridView ID="grdUser" runat="server" EnableModelValidation="True">
+        </asp:GridView>
+        <div class="divleft" style="width: 100px">
+            <h1>
+                Roles</h1>
+            <asp:GridView ID="grdRole" runat="server" EnableModelValidation="True">
+            </asp:GridView>
+        </div>
+        <div class="divleft" style="width: 310px">
+            <h1>
+                Add new User</h1>
+            <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" BackColor="#F7F6F3" BorderColor="#E6E2D8"
+                BorderStyle="Solid" BorderWidth="1px" Font-Names="Arial" Font-Size="9pt" OnNextButtonClick="CreateUserWizard1_NextButtonClick">
+                <ContinueButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid"
+                    BorderWidth="1px" Font-Names="Arial" ForeColor="#284775" />
+                <CreateUserButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid"
+                    BorderWidth="1px" Font-Names="Arial" ForeColor="#284775" />
+                <TitleTextStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                <WizardSteps>
+                    <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server" />
+                    <asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server" />
+                </WizardSteps>
+                <HeaderStyle BackColor="#5D7B9D" BorderStyle="Solid" Font-Bold="True" Font-Size="0.9em"
+                    ForeColor="White" HorizontalAlign="Center" />
+                <NavigationButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid"
+                    BorderWidth="1px" Font-Names="Arial" ForeColor="#284775" />
+                <SideBarButtonStyle BorderWidth="0px" Font-Names="Arial" ForeColor="White" />
+                <SideBarStyle BackColor="#5D7B9D" BorderWidth="0px" Font-Size="0.9em" VerticalAlign="Top" />
+                <StepStyle BorderWidth="0px" />
+            </asp:CreateUserWizard>
+        </div>
+        <div class="divleft" style="width: 350px">
+            <h1>
+                Edit User</h1>
+            <fieldset>
+                <legend>Edit User</legend>
+                <table cellpadding="5" class="table1">
+                    <tr>
+                        <td class="tdleft">
+                            Username
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="cboUser" runat="server" OnSelectedIndexChanged="cboUser_SelectedIndexChanged"
+                                AutoPostBack="True">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">
+                            Password
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtPassword" runat="server" ValidationGroup="EditUser"></asp:TextBox>
+                            &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPassword"
+                                ErrorMessage="(*)" ValidationGroup="EditUser">(*)</asp:RequiredFieldValidator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">
+                            Set role
+                        </td>
+                        <td>
+                            <asp:CheckBoxList ID="chkRoles" runat="server" Enabled="true">
+                            </asp:CheckBoxList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdleft">
+                        </td>
+                        <td>
+                            <asp:Button ID="btnEdit" runat="server" Text="Modify" OnClick="btnEdit_Click" ValidationGroup="EditUser" />
+                            &nbsp;<asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"
+                                OnClientClick="return confirm('Do you want to delete user?');" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="err">
+                    <asp:Literal ID="ltrErr" runat="server"></asp:Literal></div>
+            </fieldset>
+        </div>
+        <div class="divleft" style="width: 500px">
+            <h1>
+                Get settings value</h1>
+            <fieldset style="width: 500px">
+                <legend>Connection strings</legend>
+                <asp:GridView ID="grdConnectionstring" runat="server">
+                </asp:GridView>
+            </fieldset>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    </form>
+</body>
+</html>

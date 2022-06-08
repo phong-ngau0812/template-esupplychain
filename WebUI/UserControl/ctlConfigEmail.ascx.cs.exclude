@@ -1,0 +1,123 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using SystemFrameWork;
+using DbObj;
+
+public partial class usercontrol_ctlConfigEmail : System.Web.UI.UserControl
+{
+    protected string lang = Systemconstants.Francais;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(Request["lang"]))
+            lang = Request["lang"].ToString();
+
+        if (!IsPostBack)
+        {
+            AddJavascript();
+            FillInfoConfig();
+        }
+
+    }
+
+    protected void AddJavascript()
+    {
+        txtSMTPPort.Attributes.Add("onkeypress", "return noNumbers(event)");
+        txtServerPort.Attributes.Add("onkeypress", "return noNumbers(event)");
+    }
+
+    protected void FillInfoConfig()
+    {
+        try
+        {
+            tblConfigRow _tblConfigRow = new tblConfigRow();
+            _tblConfigRow = GetInfoConfigById();
+            if (_tblConfigRow != null)
+            {
+                txtEmailAddress.Text = _tblConfigRow.IsEmailAddressNull ? string.Empty : _tblConfigRow.EmailAddress;
+                txtEmailReceive.Text = _tblConfigRow.IsEmailReceiveNull ? string.Empty : _tblConfigRow.EmailReceive;
+                txtPassword.Text = _tblConfigRow.IsPasswordNull ? string.Empty : _tblConfigRow.Password;
+                txtMailServer.Text = _tblConfigRow.IsMailServerNull ? string.Empty : _tblConfigRow.MailServer;
+                txtServerPort.Text = _tblConfigRow.IsServerPortNull ? "110" : _tblConfigRow.ServerPort.ToString();
+                txtSMTPServer.Text = _tblConfigRow.IsSMTPServerNull ? string.Empty : _tblConfigRow.SMTPServer;
+                txtSMTPPort.Text = _tblConfigRow.IsSMTPPortNull ? "25" : _tblConfigRow.SMTPPort.ToString();
+                chkSSL.Checked = _tblConfigRow.IsSMTPPortNull ? false : _tblConfigRow.IsSSL;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillInfoConfig");
+        }
+    }
+
+    protected tblConfigRow GetInfoConfigById()
+    {
+        tblConfigRow _tblConfigRow = new tblConfigRow();
+        try
+        {
+            _tblConfigRow = Common.GetInfoConfigById();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetInfoConfigById");
+        }
+        return _tblConfigRow;
+    }
+
+    protected tblConfigRow GetInfoEmail()
+    {
+        tblConfigRow _tblConfigRow = new tblConfigRow();
+        try
+        {
+            _tblConfigRow = GetInfoConfigById();
+            _tblConfigRow.EmailAddress = string.IsNullOrEmpty(txtEmailAddress.Text.Trim()) ? string.Empty : txtEmailAddress.Text.Trim();
+            _tblConfigRow.EmailReceive = string.IsNullOrEmpty(txtEmailReceive.Text.Trim()) ? string.Empty : txtEmailReceive.Text.Trim();
+            _tblConfigRow.Password = string.IsNullOrEmpty(txtPassword.Text.Trim()) ? string.Empty : txtPassword.Text.Trim();
+            _tblConfigRow.MailServer = string.IsNullOrEmpty(txtMailServer.Text.Trim()) ? string.Empty : txtMailServer.Text.Trim();
+            _tblConfigRow.ServerPort = string.IsNullOrEmpty(txtServerPort.Text.Trim()) ? 110 : Convert.ToInt32(txtServerPort.Text.Trim());
+            _tblConfigRow.SMTPServer = string.IsNullOrEmpty(txtSMTPServer.Text.Trim()) ? string.Empty : txtSMTPServer.Text.Trim();
+            _tblConfigRow.SMTPPort = string.IsNullOrEmpty(txtSMTPPort.Text.Trim()) ? 25 : Convert.ToInt32(txtSMTPPort.Text.Trim());
+            _tblConfigRow.IsSSL = chkSSL.Checked;
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetInfoEmail");
+        }
+        return _tblConfigRow;
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Page.IsValid)
+            {
+                tblConfigRow _tblConfigRow = GetInfoEmail();
+                if (BusinessRulesLocator.GettblConfigBO().Update(_tblConfigRow))
+                    lblMessage.Text = "You have successfully updated!";
+                else
+                    lblMessage.Text = "You have not successfully updated!";
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "btnSave_Click");
+        }
+    }
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            FillInfoConfig();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "btnCancel_Click");
+        }
+    }
+
+}

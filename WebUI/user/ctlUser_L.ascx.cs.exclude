@@ -1,0 +1,148 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using SystemFrameWork;
+using DbObj;
+
+
+public partial class user_ctlUser_L : System.Web.UI.UserControl
+{
+    protected string lang = Systemconstants.Deutsch;
+    protected int No = 1;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        lblMessage.Text = string.Empty;
+
+       
+
+        if (!IsPostBack)
+        {
+            FillGridView();
+        }
+    }
+
+    protected void FillGridView()
+    {
+        DataTable dtResult = new DataTable();
+        try
+        {
+            dtResult = GetDataTableUser();
+            if (dtResult != null)
+            {
+                if (dtResult.Rows.Count > 0)
+                {
+                    grvUser.DataSource = dtResult;
+                    grvUser.DataBind();
+                }
+                else
+                {
+                    Common.BuidNoRecord(dtResult, grvUser);
+                }
+            }
+            else
+            {
+                Common.BuidNoRecord(dtResult, grvUser);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "FillGridView");
+        }
+    }
+
+    protected DataTable GetDataTableUser()
+    {
+        DataTable dtResult = new DataTable();
+        string strWhere = string.Empty;
+        string strOrder = string.Empty;
+        try
+        {
+            strWhere = "ID<>1 And Status<>-1";
+            strOrder = "RegDate DESC";
+            dtResult = BusinessRulesLocator.GettblUserBO().GetAsDataTable(strWhere, strOrder);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "GetDataTableUser");
+        }
+        return dtResult;
+    }
+
+    protected void grvUser_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        try
+        {
+            int _id = int.Parse(grvUser.DataKeys[e.NewEditIndex].Value.ToString());
+            Response.Redirect("User_E.aspx?mode=edit&UserID=" + _id.ToString(), false);
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_RowEditing");
+        }
+    }
+
+    protected void grvUser_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            lblMessage.Text = string.Empty;
+            grvUser.PageIndex = e.NewPageIndex;
+            FillGridView();
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_PageIndexChanging");
+        }
+    }
+
+    protected void grvUser_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        try
+        {
+            int _id = int.Parse(grvUser.DataKeys[e.RowIndex].Value.ToString());
+            tblUserRow _tblUserRow = BusinessRulesLocator.GettblUserBO().GetByPrimaryKey(_id);
+            if (_tblUserRow != null)
+            {
+                _tblUserRow.Status = -1;
+                if (BusinessRulesLocator.GettblUserBO().Update(_tblUserRow))
+                    lblMessage.Text = "You are deleted a Row successfully!";
+                else
+                    lblMessage.Text = "You are deleted a Row failed!";
+
+                FillGridView();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_RowDeleting");
+            lblMessage.Text = "You can not delete this record!";
+        }
+    }
+
+    protected void grvUser_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblDepartmentID = (Label)(e.Row.FindControl("lblDepartmentID"));
+               
+
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog(ex.ToString(), "grvUser_RowDataBound");
+        }
+    }
+
+    
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("User_E.aspx?mode=add");
+    }
+}

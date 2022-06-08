@@ -1,0 +1,67 @@
+﻿using DbObj;
+using evointernal;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using SystemFrameWork;
+using Telerik.Web.UI;
+
+public partial class ProductBrandPackage_Add : System.Web.UI.Page
+{
+    int PackageSoftwareType_ID = 0;
+    public string title = "Thêm mới gói doanh nghiệp";
+    public string avatar = "";
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+
+
+    protected void AddPackageSoftwareType()
+    {
+        try
+        {
+
+            PackageSoftwareTypeRow _PackageSoftwareTypeRow = new PackageSoftwareTypeRow();
+            _PackageSoftwareTypeRow.Title = string.IsNullOrEmpty(txtName.Text) ? string.Empty : txtName.Text;
+            _PackageSoftwareTypeRow.Description = txtDescription.Text;
+            _PackageSoftwareTypeRow.Status = 1;
+            BusinessRulesLocator.GetPackageSoftwareTypeBO().Insert(_PackageSoftwareTypeRow);
+            lblMessage.Text = "Thêm mới thành công!";
+            lblMessage.Visible = true;
+
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("UpdatePackageSoftwareType", ex.ToString());
+        }
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Page.IsValid)
+            {
+                AddPackageSoftwareType();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.writeLog("btnSave_Click", ex.ToString());
+        }
+    }
+
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("PackageSoftwareType_List.aspx", false);
+    }
+}
